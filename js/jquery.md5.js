@@ -1,4 +1,4 @@
-/*
+*
 *
 *  jQuery MD5 Plugin
 *

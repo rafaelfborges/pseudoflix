@@ -4,9 +4,9 @@
 
 	$nome = $_POST["nome"];
 
-	$conn = mysqli_connect("localhost:8889", "root", "root", "eduardolino");
+	$conn = mysqli_connect("localhost:3306", "root", "root", "primeiro-teste");
 
-	mysqli_query($conn, "insert into pessoa(nome) values('".$nome."')");
+	mysqli_query($conn, "insert into tb_dados_usuarios(nome) values('".$nome."')");
 
 
 

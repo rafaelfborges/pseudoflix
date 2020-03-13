@@ -38,6 +38,6 @@ function comunicarBD(){
 			confirmarSenha: $("#confirm_senha").val(),
 		},
 		type: "POST",
-		url: '../php/index.php'
+		url: '../php/CadastrarUsuario.php'
 	});
 }

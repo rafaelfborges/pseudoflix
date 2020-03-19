@@ -1,0 +1,13 @@
+.container {
+  width: 100%;
+}
+
+.form-cadastro {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
+#endereco {
+  width: 65%;
+}

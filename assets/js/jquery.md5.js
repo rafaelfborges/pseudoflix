@@ -1,4 +1,4 @@
-*
+/*
 *
 *  jQuery MD5 Plugin
 *
@@ -15,14 +15,14 @@
 *
 */
 
-(function($) {
+(function ($) {
   var MD5;
-  MD5 = function(string) {
+  MD5 = function (string) {
     var AA, AddUnsigned, BB, CC, ConvertToWordArray, DD, F, FF, G, GG, H, HH, I, II, RotateLeft, S11, S12, S13, S14, S21, S22, S23, S24, S31, S32, S33, S34, S41, S42, S43, S44, Utf8Encode, WordToHex, a, b, c, d, k, temp, x;
-    RotateLeft = function(lValue, iShiftBits) {
+    RotateLeft = function (lValue, iShiftBits) {
       return (lValue << iShiftBits) | (lValue >>> (32 - iShiftBits));
     };
-    AddUnsigned = function(lX, lY) {
+    AddUnsigned = function (lX, lY) {
       var lResult, lX4, lX8, lY4, lY8;
       lX8 = lX & 0x80000000;
       lY8 = lY & 0x80000000;
@@ -42,35 +42,35 @@
         return lResult ^ lX8 ^ lY8;
       }
     };
-    F = function(x, y, z) {
+    F = function (x, y, z) {
       return (x & y) | ((~x) & z);
     };
-    G = function(x, y, z) {
+    G = function (x, y, z) {
       return (x & z) | (y & (~z));
     };
-    H = function(x, y, z) {
+    H = function (x, y, z) {
       return x ^ y ^ z;
     };
-    I = function(x, y, z) {
+    I = function (x, y, z) {
       return y ^ (x | (~z));
     };
-    FF = function(a, b, c, d, x, s, ac) {
+    FF = function (a, b, c, d, x, s, ac) {
       a = AddUnsigned(a, AddUnsigned(AddUnsigned(F(b, c, d), x), ac));
       return AddUnsigned(RotateLeft(a, s), b);
     };
-    GG = function(a, b, c, d, x, s, ac) {
+    GG = function (a, b, c, d, x, s, ac) {
       a = AddUnsigned(a, AddUnsigned(AddUnsigned(G(b, c, d), x), ac));
       return AddUnsigned(RotateLeft(a, s), b);
     };
-    HH = function(a, b, c, d, x, s, ac) {
+    HH = function (a, b, c, d, x, s, ac) {
       a = AddUnsigned(a, AddUnsigned(AddUnsigned(H(b, c, d), x), ac));
       return AddUnsigned(RotateLeft(a, s), b);
     };
-    II = function(a, b, c, d, x, s, ac) {
+    II = function (a, b, c, d, x, s, ac) {
       a = AddUnsigned(a, AddUnsigned(AddUnsigned(I(b, c, d), x), ac));
       return AddUnsigned(RotateLeft(a, s), b);
     };
-    ConvertToWordArray = function(string) {
+    ConvertToWordArray = function (string) {
       var lByteCount, lBytePosition, lMessageLength, lNumberOfWords, lNumberOfWords_temp1, lNumberOfWords_temp2, lWordArray, lWordCount;
       lMessageLength = string.length;
       lNumberOfWords_temp1 = lMessageLength + 8;
@@ -92,7 +92,7 @@
       lWordArray[lNumberOfWords - 1] = lMessageLength >>> 29;
       return lWordArray;
     };
-    WordToHex = function(lValue) {
+    WordToHex = function (lValue) {
       var WordToHexValue, WordToHexValue_temp, lByte, lCount;
       WordToHexValue = "";
       WordToHexValue_temp = "";
@@ -105,7 +105,7 @@
       }
       return WordToHexValue;
     };
-    Utf8Encode = function(string) {
+    Utf8Encode = function (string) {
       var c, n, utftext;
       string = string.replace(/\r\n/g, "\n");
       utftext = "";

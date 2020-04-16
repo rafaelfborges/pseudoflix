@@ -1,7 +1,8 @@
 
 $(document).ready(function () {
-  autoCompleteCep();
+  completarEndereco();
   cadastrarUsuario();
+  validarSenha();
 });
 
 function cadastrarUsuario() {
@@ -13,11 +14,45 @@ function cadastrarUsuario() {
       cache: false,
       data: $.param(dados),
       type: "POST",
-      success: function (msg) {
-        alert(msg)
+      dataType: 'JSON',
+      success: (response) => {
+        alert("Usuário cadastrado com sucesso! Confirme sua conta através do e-mail.");
+      },
+      error: (request, status, error) => {
+        console.log(request);
+        if (request.responseJSON[0][1] === 1062) {
+          alert("E-mail já cadastrado! Tente recuperar sua senha.")
+        } else if (status === 500) {
+          alert("Erro! Contate um administrador. Mensagem: " + request.responseText);
+        }
       }
     })
     event.preventDefault();
+  });
+}
+
+function validarSenha() {
+  $("#confirma-senha").blur(() => {
+    var senhaA = $("#senha").val();
+    var senhaB = $("#confirma-senha").val();
+
+    if (senhaA === senhaB) {
+      if ($("#senha").hasClass("is-invalid")) {
+        $("#senha").removeClass("is-invalid");
+        $("#confirma-senha").removeClass("is-invalid");
+      }
+      $("#senha").toggleClass("is-valid");
+      $("#confirma-senha").toggleClass("is-valid");
+      $('#buttonCadastrar').removeAttr("disabled");
+    } else {
+      if ($("#senha").hasClass("is-valid")) {
+        $("#senha").removeClass("is-valid");
+        $("#confirma-senha").removeClass("is-valid");
+      }
+      $("#senha").toggleClass("is-invalid");
+      $("#confirma-senha").toggleClass("is-invalid");
+      $("#buttonCadastrar").attr("disabled", true);
+    }
   });
 }
 
@@ -28,7 +63,7 @@ function limpaFormularioCep() {
   $("#bairro").val("");
 }
 
-function autoCompleteCep() {
+function completarEndereco() {
   // Ao perder o foco do campo CEP, preenche os dados.
   $("#cep").blur(function () {
     //Nova variável "cep" somente com dígitos.

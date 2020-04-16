@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_dados_usuarios`
+-- Estrutura da tabela `usuarios_dados`
 --
 
-CREATE TABLE `tb_dados_usuarios` (
+CREATE TABLE `usuarios_dados` (
   `id` int NOT NULL,
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `senha` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -49,10 +49,10 @@ CREATE TABLE `tb_dados_usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tb_dados_usuarios`
+-- Extraindo dados da tabela `usuarios_dados`
 --
 
-INSERT INTO `tb_dados_usuarios` (`id`, `email`, `senha`, `nome_completo`, `data_nascimento`, `telefone`, `cep`, `endereco`, `complemento`, `cidade`, `bairro`, `numero_cartao`, `digito_verificador`, `validade_cartao`, `tipo_assinatura`, `flag_confirmacao`, `data_criacao`) VALUES
+INSERT INTO `usuarios_dados` (`id`, `email`, `senha`, `nome_completo`, `data_nascimento`, `telefone`, `cep`, `endereco`, `complemento`, `cidade`, `bairro`, `numero_cartao`, `digito_verificador`, `validade_cartao`, `tipo_assinatura`, `flag_confirmacao`, `data_criacao`) VALUES
 (1, 'rafaelfborges@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Rafael Borges', '1985-12-28', '41991342581', '83035170', 'Rua Aristides França, 584', 'Casa', 'São José dos Pinhais', 'Cidade Jardim', NULL, NULL, NULL, NULL, 1, '2020-03-19 20:19:39'),
 (2, 'rafaelfborges@hotmail.com', '202cb962ac59075b964b07152d234b70', 'Rafael Borges', '1985-12-28', '41991342581', '83035170', 'Rua Aristides França, 584', 'Casa', 'São José dos Pinhais', 'Cidade Jardim', NULL, NULL, NULL, NULL, 1, '2020-03-19 20:24:23');
 
@@ -61,9 +61,9 @@ INSERT INTO `tb_dados_usuarios` (`id`, `email`, `senha`, `nome_completo`, `data_
 --
 
 --
--- Índices para tabela `tb_dados_usuarios`
+-- Índices para tabela `usuarios_dados`
 --
-ALTER TABLE `tb_dados_usuarios`
+ALTER TABLE `usuarios_dados`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email_UNIQUE` (`email`);
 
@@ -72,9 +72,9 @@ ALTER TABLE `tb_dados_usuarios`
 --
 
 --
--- AUTO_INCREMENT de tabela `tb_dados_usuarios`
+-- AUTO_INCREMENT de tabela `usuarios_dados`
 --
-ALTER TABLE `tb_dados_usuarios`
+ALTER TABLE `usuarios_dados`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 

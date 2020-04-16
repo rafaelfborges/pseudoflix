@@ -9,8 +9,12 @@ $(document).ready(function () {
         senha: $.MD5($('#inputSenha').val())
       },
       type: "POST",
-      success: function (msg) {
-        alert(msg)
+      dataType: JSON,
+      success: (response) => {
+        console.log(response);
+      },
+      error: (request, status, error) => {
+        console.log(request);
       }
     });
     event.preventDefault();

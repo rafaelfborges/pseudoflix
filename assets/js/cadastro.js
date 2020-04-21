@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 function cadastrarUsuario() {
   jQuery('#formCadastro').submit(function () {
-    var dados = jQuery(this).serializeArray();
+    let dados = jQuery(this).serializeArray();
     dados[1].value = $.MD5(dados[1].value)
     $.ajax({
       url: '/pseudoflix/src/CadastrarUsuario.php',
@@ -33,24 +33,24 @@ function cadastrarUsuario() {
 
 function validarSenha() {
   $("#confirma-senha").blur(() => {
-    var senhaA = $("#senha").val();
-    var senhaB = $("#confirma-senha").val();
+    const senhaA = $("#senha").val();
+    const senhaB = $("#confirma-senha").val();
 
     if (senhaA === senhaB) {
-      if ($("#senha").hasClass("is-invalid")) {
-        $("#senha").removeClass("is-invalid");
-        $("#confirma-senha").removeClass("is-invalid");
+      if (senhaA.hasClass("is-invalid")) {
+        senhaA.removeClass("is-invalid");
+        senhaB.removeClass("is-invalid");
       }
-      $("#senha").toggleClass("is-valid");
-      $("#confirma-senha").toggleClass("is-valid");
+      senhaA.toggleClass("is-valid");
+      senhaB.toggleClass("is-valid");
       $('#buttonCadastrar').removeAttr("disabled");
     } else {
-      if ($("#senha").hasClass("is-valid")) {
-        $("#senha").removeClass("is-valid");
-        $("#confirma-senha").removeClass("is-valid");
+      if (senhaA.hasClass("is-valid")) {
+        senhaA.removeClass("is-valid");
+        senhaB.removeClass("is-valid");
       }
-      $("#senha").toggleClass("is-invalid");
-      $("#confirma-senha").toggleClass("is-invalid");
+      senhaA.toggleClass("is-invalid");
+      senhaB.toggleClass("is-invalid");
       $("#buttonCadastrar").attr("disabled", true);
     }
   });
@@ -67,11 +67,11 @@ function completarEndereco() {
   // Ao perder o foco do campo CEP, preenche os dados.
   $("#cep").blur(function () {
     //Nova variável "cep" somente com dígitos.
-    var cep = $(this).val().replace(/\D/g, '');
+    let cep = $(this).val().replace(/\D/g, '');
     //Verifica se campo cep possui valor informado.
-    if (cep != "") {
+    if (cep !== "") {
       //Expressão regular para validar o CEP.
-      var validacep = /^[0-9]{8}$/;
+      const validacep = /^[0-9]{8}$/;
       //Valida o formato do CEP.
       if (validacep.test(cep)) {
         //Preenche os campos com "..." enquanto consulta webservice.

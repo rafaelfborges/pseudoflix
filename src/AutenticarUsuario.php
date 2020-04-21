@@ -1,21 +1,31 @@
 <?php
-    require 'ConexaoBD.php';
+  require 'ConexaoBD.php';
 
-    $email = $_POST['email'];
-	$senha = $_POST['senha'];
+  $email = $_POST['email'];
+  $senha = $_POST['senha'];
 
-	$query = mysqli_query($conn,"SELECT * FROM tb_dados_usuarios WHERE email = '$email' AND flag_confirmacao = '1'");
-    $row = mysqli_num_rows($query);
-    
-    if ($row == 1) {
-        $query = mysqli_query($conn,"SELECT * FROM tb_dados_usuarios WHERE email = '$email' AND senha = '$senha'");
-        $row = mysqli_num_rows($query);
-        if ($row > 0){
-            echo "Usuário autenticado com sucesso, redirecionando...";
+  $pdo = Conexao::getInstance();
+  if($pdo != null){
+    try {
+      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+      $stmt = $pdo->prepare("SELECT flag_confirmacao FROM usuarios_dados WHERE email = '$email'");
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_OBJ)->{'flag_confirmacao'};
+      if($result == 1){
+        $sql = "SELECT email, senha FROM usuarios_dados WHERE email = '$email' AND senha = '$senha'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        
+        if($stmt->rowCount() == 1){
+          http_response_code(200);
         } else {
-            echo "Usuário ou senha inexistente! Confirme seus dados de login novamente.";
+          http_response_code(401);
         }
-    } else {
-        echo "Usuário não confirmou o cadastro para logar, por favor, verifique seu e-mail.";
+      } 
+    } catch(PDOException $e){
+      $error[] = $stmt->errorCode();
+      http_response_code(403);
+      echo json_encode($error);
     }
-?>
+  }

@@ -2,17 +2,26 @@
   require 'ConexaoBD.php';
     
   $email = $_GET['usuario'];
+  
+  $pdo = Conexao::getInstance();
+  if($pdo != null){
+    try {
+      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-  $query = mysqli_query($conn,"SELECT * FROM tb_dados_usuarios WHERE email = '$email'");
-  $row = mysqli_num_rows($query);
-    
-  if($row == 1) {
-    $confirmaCadastro = mysqli_query($conn,"UPDATE tb_dados_usuarios SET flag_confirmacao = '1' WHERE email = '$email'");
-    if($confirmaCadastro == 1) {
-      $result = "Usuário confirmado com sucesso!";
+      $stmt = $pdo->prepare("SELECT * FROM usuarios_dados WHERE email = '$email'");
+      $stmt->execute();
+
+      if($stmt->rowCount() == 1) {
+        $stmt = $pdo->prepare("UPDATE usuarios_dados SET flag_confirmacao = '1' WHERE email = '$email'");
+        $stmt->execute();
+        
+        $result[] = $stmt->rowCount();
+        http_response_code(201);
+      }      
+    } catch(PDOException $e){
+      $error[] = $stmt->errorCode();
+      http_response_code(403);
     }
-  } else {
-    $result = "Problemas ao confirmar! Favor, entre em contato com o administrador.";
   }
 ?>
 
@@ -37,7 +46,6 @@
     integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
   <!-- Global CSS -->
-  <link rel="stylesheet" href="/pseudoflix/assets/css/reset.css">
   <link rel="stylesheet" href="/pseudoflix/assets/css/global.css">
 
   <!-- Custom CSS -->
@@ -59,13 +67,19 @@
 </head>
 
 <body class="text-center">
-  <nav class="navbar navbar-dark bg-primary">
-    <a class="navbar-brand font-weight-bolder" href="/pseudoflix/">Pseudoflix</a>
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand font-weight-bolder" href="/">
+      <img class="logo" src="../assets/images/logo.png" alt="Pseudoflix">
+    </a>
   </nav>
   <div class="conteiner mt-4">
     <span>
       <?php
-        echo $result;
+        if($result[0] == 1){
+          echo "E-mail confirmado com sucesso!";
+        } else {
+          echo "Erro! Contate o administrador.";
+        }
       ?>
     </span><a href="/pseudoflix/">Voltar para Home.</a>
   </div>

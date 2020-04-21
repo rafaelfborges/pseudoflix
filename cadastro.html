@@ -41,7 +41,7 @@
 
 <body>
   <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand font-weight-bolder" href="/">
+    <a class="navbar-brand font-weight-bolder" href="pseudoflix/">
       <img class="logo" src="assets/images/logo.png" alt="Pseudoflix">
     </a>
   </nav>
@@ -50,37 +50,43 @@
       <h3 class="titulo mb-3 text-center">Dados do Login</h3>
       <div class="form-group mb-3">
         <label for="email"></label>Email:</label>
-        <input type="text" name="email" id="email" class="form-control" placeholder="Digite um e-mail">
+        <input type="text" name="email" id="email" class="form-control" placeholder="Digite um e-mail" required>
       </div>
       <div class="form-group mb-3">
         <label for="usuario">Senha:</label>
-        <input type="password" name="senha" id="senha" class="form-control" placeholder="Digite uma senha">
+        <input type="password" name="senha" id="senha" class="form-control" placeholder="Digite uma senha" required>
+      </div>
+      <div class="form-group mb-3">
+        <label for="usuario">Confirmação Senha:</label>
+        <input type="password" name="confirma-senha" id="confirma-senha" class="form-control"
+          placeholder="Confirme a senha" required>
       </div>
 
       <h3 class="titulo mt-4 mb-3 text-center">Dados do Usuário</h1>
         <div class="form-group mb-3">
           <label for="nomeCompleto">Nome:</label>
           <input type="text" name="nomeCompleto" id="nomeCompleto" class="form-control"
-            placeholder="Digite seu nome completo">
+            placeholder="Digite seu nome completo" required>
         </div>
         <div class="form-group mb-3">
           <label for="dataNascimento">Data de Nascimento:</label>
           <input type="date" name="dataNascimento" id="dataNascimento" class="form-control"
-            placeholder="Digite sua data de nascimento">
+            placeholder="Digite sua data de nascimento" required>
         </div>
         <div class="form-group mb-3">
           <label for="endereco">Telefone:</label>
-          <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Digite seu telefone">
+          <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Digite seu telefone"
+            required>
         </div>
         <div class="form-group mb-3">
           <label for="endereco">CEP:</label>
-          <input type="text" name="cep" id="cep" class="form-control" placeholder="Digite seu CEP">
+          <input type="text" name="cep" id="cep" class="form-control" placeholder="Digite seu CEP" required>
         </div>
         <div class="form-group mb-3">
           <label for="endereco">Endereço:</label>
           <div class="input-group">
-            <input type="text" name="endereco" id="endereco" class="form-control">
-            <input type="text" name="numero" id="numero" class="form-control text-center" placeholder="Número">
+            <input type="text" name="endereco" id="endereco" class="form-control" required>
+            <input type="text" name="numero" id="numero" class="form-control text-center" placeholder="Número" required>
           </div>
         </div>
         <div class="form-group mb-3">
@@ -89,11 +95,11 @@
         </div>
         <div class="form-group mb-3">
           <label for="endereco">Cidade:</label>
-          <input type="text" name="cidade" id="cidade" class="form-control">
+          <input type="text" name="cidade" id="cidade" class="form-control" required>
         </div>
         <div class="form-group mb-3">
           <label for="endereco">Bairro:</label>
-          <input type="text" name="bairro" id="bairro" class="form-control">
+          <input type="text" name="bairro" id="bairro" class="form-control" required>
         </div>
         <div class="text-right">
           <button id="buttonCadastrar" class="btn btn-success" type="submit">Cadastrar</button>

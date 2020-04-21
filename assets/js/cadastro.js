@@ -1,23 +1,58 @@
 
 $(document).ready(function () {
-  autoCompleteCep();
+  completarEndereco();
   cadastrarUsuario();
+  validarSenha();
 });
 
 function cadastrarUsuario() {
   jQuery('#formCadastro').submit(function () {
-    var dados = jQuery(this).serializeArray();
+    let dados = jQuery(this).serializeArray();
     dados[1].value = $.MD5(dados[1].value)
     $.ajax({
       url: '/pseudoflix/src/CadastrarUsuario.php',
       cache: false,
       data: $.param(dados),
       type: "POST",
-      success: function (msg) {
-        alert(msg)
+      dataType: 'JSON',
+      success: (response) => {
+        alert("Usuário cadastrado com sucesso! Confirme sua conta através do e-mail.");
+      },
+      error: (request, status, error) => {
+        console.log(request);
+        if (request.responseJSON[0][1] === 1062) {
+          alert("E-mail já cadastrado! Tente recuperar sua senha.")
+        } else if (status === 500) {
+          alert("Erro! Contate um administrador. Mensagem: " + request.responseText);
+        }
       }
     })
     event.preventDefault();
+  });
+}
+
+function validarSenha() {
+  $("#confirma-senha").blur(() => {
+    const senhaA = $("#senha").val();
+    const senhaB = $("#confirma-senha").val();
+
+    if (senhaA === senhaB) {
+      if (senhaA.hasClass("is-invalid")) {
+        senhaA.removeClass("is-invalid");
+        senhaB.removeClass("is-invalid");
+      }
+      senhaA.toggleClass("is-valid");
+      senhaB.toggleClass("is-valid");
+      $('#buttonCadastrar').removeAttr("disabled");
+    } else {
+      if (senhaA.hasClass("is-valid")) {
+        senhaA.removeClass("is-valid");
+        senhaB.removeClass("is-valid");
+      }
+      senhaA.toggleClass("is-invalid");
+      senhaB.toggleClass("is-invalid");
+      $("#buttonCadastrar").attr("disabled", true);
+    }
   });
 }
 
@@ -28,15 +63,15 @@ function limpaFormularioCep() {
   $("#bairro").val("");
 }
 
-function autoCompleteCep() {
+function completarEndereco() {
   // Ao perder o foco do campo CEP, preenche os dados.
   $("#cep").blur(function () {
     //Nova variável "cep" somente com dígitos.
-    var cep = $(this).val().replace(/\D/g, '');
+    let cep = $(this).val().replace(/\D/g, '');
     //Verifica se campo cep possui valor informado.
-    if (cep != "") {
+    if (cep !== "") {
       //Expressão regular para validar o CEP.
-      var validacep = /^[0-9]{8}$/;
+      const validacep = /^[0-9]{8}$/;
       //Valida o formato do CEP.
       if (validacep.test(cep)) {
         //Preenche os campos com "..." enquanto consulta webservice.

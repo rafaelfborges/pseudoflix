@@ -1,7 +1,5 @@
-
-$(document).ready(function () {
-  $("#buttonAcessar").click(function () {
-
+$(document).ready(() => {
+  $("#buttonAcessar").click(() => {
     $.ajax({
       url: '/pseudoflix/src/AutenticarUsuario.php',
       cache: false,

@@ -1,107 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt">
-  <head>
-    <title>Pseudoflix - Filmes e Séries</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
+<head>
+  <title>Pseudoflix - Filmes e Séries</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="msapplication-TileColor" content="#da532c" />
+  <meta name="theme-color" content="#ffffff" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.min.css" />
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/login.css" />
+  <!-- Custom Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="assets/images/favicon/site.webmanifest" />
+  <link rel="mask-icon" href="assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+</head>
 
-    <!-- Fonte -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-      rel="stylesheet"
-    />
+<body>
+  <div class="container">
+    <form class="form-login" id="formLogin">
+      <div class="text-center">
+        <a href="/">
+          <img class="w-75 mb-3" src="assets/images/logo.svg" alt="Pseudoflix" />
+        </a>
+      </div>
 
-    <!--Fontawesome CDN-->
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-      crossorigin="anonymous"
-    />
-
-    <!-- Global CSS -->
-    <link rel="stylesheet" href="assets/css/reset.css" />
-    <link rel="stylesheet" href="assets/css/global.css" />
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/login.css" />
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="assets/js/jquery-3.4.1.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- Custom Scripts -->
-    <script src="assets/js/login.js"></script>
-    <script src="assets/js/jquery.md5.js"></script>
-  </head>
-
-  <body>
-    <div class="container">
-      <form class="form-login" id="formLogin">
-        <div class="text-center">
-          <a href="/pseudoflix/">
-            <img class="w-75 mb-3" src="assets/images/logo.svg" alt="Pseudoflix" />
-          </a>
+      <label class="sr-only" for="inputEmail">Email</label>
+      <div class="input-group mb-2 mr-sm-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
         </div>
+        <input type="email" class="form-control" id="inputEmail" placeholder="Email" />
+      </div>
+      <label class="sr-only" for="inputSenha">Senha</label>
+      <div class="input-group mr-sm-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-key"></i></span>
+        </div>
+        <input type="password" class="form-control" id="inputSenha" placeholder="Senha" />
+      </div>
+      <div class="text-right m-3">
+        <a href="#esqueci" class="text-decoration-none text-dark font-weight-bolder">Esqueceu a senha?</a>
+      </div>
+      <button id="buttonAcessar" class="btn btn-lg btn-primary btn-block">
+        Entrar
+      </button>
+      <div class="mt-4 text-center">
+        <span>
+          Você é novo por aqui?
+          <a href="cadastro.html" class="text-decoration-none text-dark font-weight-bolder">Cadastre-se agora!</a>
+        </span>
+      </div>
+    </form>
+  </div>
+  <!-- Required JavaScript -->
+  <!-- JQuery, Poppers, Bootstrap and FontAwesome -->
+  <script src="assets/js/utils/jquery-3.5.0.min.js"></script>
+  <script src="assets/js/utils/popper.min.js"></script>
+  <script src="assets/js/utils/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/4f1d3e52f2.js" crossorigin="anonymous"></script>
+  <!-- Custom Scripts -->
+  <script src="assets/js/login.js"></script>
+  <script src="assets/js/utils/jquery.md5.js"></script>
+</body>
 
-        <label class="sr-only" for="inputEmail">Email</label>
-        <div class="input-group mb-2 mr-sm-2">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
-          </div>
-          <input
-            type="email"
-            class="form-control"
-            id="inputEmail"
-            placeholder="Email"
-          />
-        </div>
-        <label class="sr-only" for="inputSenha">Senha</label>
-        <div class="input-group mr-sm-2">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-key"></i></span>
-          </div>
-          <input
-            type="password"
-            class="form-control"
-            id="inputSenha"
-            placeholder="Senha"
-          />
-        </div>
-        <div class="text-right m-3">
-          <a href="#esqueci" class="text-decoration-none text-dark font-weight-bolder">Esqueceu a senha?</a>
-        </div>
-        <button id="buttonAcessar" class="btn btn-lg btn-primary btn-block">
-          Entrar
-        </button>
-        <div class="mt-4 text-center">
-          <span>
-            Você é novo por aqui?
-            <a href="cadastro.html" class="text-decoration-none text-dark font-weight-bolder">Cadastra-se agora!</a>
-          </span>
-        </div>
-      </form>
-    </div>
-  </body>
 </html>

@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
   completarEndereco();
   cadastrarUsuario();
@@ -6,7 +5,7 @@ $(document).ready(function () {
 });
 
 function cadastrarUsuario() {
-  jQuery('#formCadastro').submit(function () {
+  jQuery("#formCadastro").submit(function () {
     let dados = jQuery(this).serializeArray();
     dados[1].value = $.MD5(dados[1].value)
     $.ajax({
@@ -56,43 +55,32 @@ function validarSenha() {
   });
 }
 
-function limpaFormularioCep() {
-  // Limpa valores do formulário de cep.
-  $("#cidade").val("");
-  $("#endereco").val("");
-  $("#bairro").val("");
-}
-
 function completarEndereco() {
-  // Ao perder o foco do campo CEP, preenche os dados.
-  $("#cep").blur(function () {
-    //Nova variável "cep" somente com dígitos.
+  function limpaFormularioCep() {
+    $("#cidade").val("");
+    $("#endereco").val("");
+    $("#bairro").val("");
+  }
+  
+  $("#cep").blur(() => {
     let cep = $(this).val().replace(/\D/g, '');
-    //Verifica se campo cep possui valor informado.
     if (cep !== "") {
-      //Expressão regular para validar o CEP.
       const validacep = /^[0-9]{8}$/;
-      //Valida o formato do CEP.
       if (validacep.test(cep)) {
-        //Preenche os campos com "..." enquanto consulta webservice.
-        $("#cidade").val("...");
-        $("#endereco").val("...");
-        $("#bairro").val("...");
-        //Consulta o webservice viacep.com.br/
-        $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+        $("#cidade").val("Carregando...");
+        $("#endereco").val("Carregando...");
+        $("#bairro").val("Carregando...");
+        $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", (dados) => {
           if (!("erro" in dados)) {
-            //Atualiza os campos com os valores da consulta.
             $("#cidade").val(dados.localidade);
             $("#endereco").val(dados.logradouro);
             $("#bairro").val(dados.bairro);
           } else {
-            //CEP pesquisado não foi encontrado.
             limpaFormularioCep();
             alert("CEP não encontrado.");
           }
         });
       } else {
-        //cep é inválido.     
         limpaFormularioCep();
         alert("Formato de CEP inválido.");
       }

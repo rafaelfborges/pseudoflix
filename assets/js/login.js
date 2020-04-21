@@ -1,7 +1,7 @@
 $(document).ready(() => {
   $("#buttonAcessar").click(() => {
     $.ajax({
-      url: '/pseudoflix/src/AutenticarUsuario.php',
+      url: 'src/AutenticarUsuario.php',
       cache: false,
       data: {
         email: $('#inputEmail').val(),

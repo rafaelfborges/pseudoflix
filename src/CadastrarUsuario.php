@@ -32,7 +32,7 @@
   
       $stmt->execute();
       $result[] = $stmt->rowCount();
-  
+      
       enviarEmailConfirmacao($email);
       http_response_code(201);
       echo json_encode($result);

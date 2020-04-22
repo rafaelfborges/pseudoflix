@@ -12,8 +12,13 @@ function verificaLogin() {
         senha: $.MD5($('#inputSenha').val())
       },
       type: "POST",
+      dataType: 'JSON',
       success: (response) => {
         console.log(response);
+      },
+      error: (request, status) => {
+        console.log(request);
+        console.log(status);
       }
     });
     event.preventDefault();

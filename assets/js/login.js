@@ -1,4 +1,8 @@
 $(document).ready(() => {
+  verificaLogin();
+});
+
+function verificaLogin() {
   $("#buttonAcessar").click(() => {
     $.ajax({
       url: 'src/AutenticarUsuario.php',
@@ -13,5 +17,5 @@ $(document).ready(() => {
       }
     });
     event.preventDefault();
-  });
-});
+  })
+}

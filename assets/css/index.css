@@ -1,0 +1,19 @@
+.card-post img {
+  height: 250px;
+}
+
+.card-post {
+  height: 100%;
+}
+
+#usuarioMenu {
+  visibility: hidden;
+}
+
+#usuarioNotificacao {
+  visibility: hidden;
+}
+
+#usuarioPesquisa {
+  visibility: hidden;
+}

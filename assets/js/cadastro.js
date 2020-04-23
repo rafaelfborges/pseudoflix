@@ -21,10 +21,10 @@ function cadastrarUsuario() {
       success: (response) => {
         alert("Usuário cadastrado com sucesso! Confirme sua conta através do e-mail.");
       },
-      error: (request, status) => {
-          if (request.responseJSON[0].includes(1062)) {
+      error: (request) => {
+        if (request.responseJSON[0].includes(1062)) {
           alert("E-mail já cadastrado! Tente recuperar sua senha.")
-        } else if (status === 500) {
+        } else if (request.status === 500) {
           alert("Erro! Contate um administrador. Mensagem: " + request.responseText);
         }
       }

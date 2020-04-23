@@ -64,11 +64,11 @@
           echo "Erro! Contate o administrador.";
         }
       ?>
-    </span><a href="../index.html">Voltar para Home.</a>
+    </span><a href="../login.html">Voltar para Home.</a>
   </div>
   <!-- Required JavaScript -->
   <!-- JQuery, Poppers, Bootstrap and FontAwesome -->
-  <script src="../assets/js/utils/jquery-3.5.0.min.js"></script>
+  <script src="../assets/js/utils/jquery-3.4.1.min.js"></script>
   <script src="../assets/js/utils/popper.min.js"></script>
   <script src="../assets/js/utils/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/4f1d3e52f2.js" crossorigin="anonymous"></script>

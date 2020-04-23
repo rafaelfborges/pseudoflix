@@ -2,18 +2,18 @@
 <html lang="pt">
 
 <head>
-  <title>Pseudoflix - Filmes e Séries</title>
+  <title>Pseudoflix - Cadastro</title>
   <!-- Required meta tags -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="msapplication-TileColor" content="#da532c" />
   <meta name="theme-color" content="#ffffff" />
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.min.css" />
   <!-- Global CSS -->
-  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/global.css">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/login.css" />
+  <link rel="stylesheet" href="assets/css/index.css">
   <!-- Custom Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png" />
@@ -23,51 +23,94 @@
 </head>
 
 <body>
-  <div class="container">
-    <form class="form-login" id="formLogin">
-      <div class="text-center">
-        <a href="/">
-          <img class="w-75 mb-3" src="assets/images/logo.svg" alt="Pseudoflix" />
-        </a>
-      </div>
-
-      <label class="sr-only" for="inputEmail">Email</label>
-      <div class="input-group mb-2 mr-sm-2">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-user"></i></span>
-        </div>
-        <input type="email" class="form-control" id="inputEmail" placeholder="Email" />
-      </div>
-      <label class="sr-only" for="inputSenha">Senha</label>
-      <div class="input-group mr-sm-2">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-key"></i></span>
-        </div>
-        <input type="password" class="form-control" id="inputSenha" placeholder="Senha" />
-      </div>
-      <div class="text-right m-3">
-        <a href="#esqueci" class="text-decoration-none text-dark font-weight-bolder">Esqueceu a senha?</a>
-      </div>
-      <button id="buttonAcessar" class="btn btn-lg btn-primary btn-block">
-        Entrar
+  <!-- NavBar -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand font-weight-bolder" href="index.html">
+        <img class="logo" src="assets/images/logo.png" alt="Pseudoflix">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="mt-4 text-center">
-        <span>
-          Você é novo por aqui?
-          <a href="cadastro.html" class="text-decoration-none text-dark font-weight-bolder">Cadastre-se agora!</a>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Séries</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Filmes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Mais recentes</a>
+          </li>
+        </ul>
+
+        <span class="fa-stack fa-lg mr-2" id="usuarioNotificacao">
+          <a href=""><i class="far fa-bell fa-stack-1x fa-inverse"></i></a>
         </span>
+
+        <form class="form-inline my-2 my-lg-0" id="usuarioPesquisa">
+          <input class="form-control mr-sm-1" type="search" placeholder="Pesquisar" aria-label="Search">
+          <button class="btn btn-info my-2 my-sm-0" type="submit">&nbsp;<i class="fas fa-search"></i>&nbsp;</button>
+        </form>
+
+        <ul class="navbar-nav text-right ml-3">
+          <li class="nav-item dropdown" id="usuarioMenu">
+            <a class="nav-link dropdown-toggle" href="#" id="usuario" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">Meu perfil</a>
+            <div class="dropdown-menu" aria-labelledby="usuario">
+              <a class="dropdown-item" href="#">Minha Conta</a>
+              <a class="dropdown-item" href="#">Ajuda</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" id="logoff">Sair</a>
+            </div>
+          </li>
+        </ul>
+        <button class="btn btn-success" id="login" onclick="window.location.href='login.html'">Entrar</button>
       </div>
-    </form>
+    </nav>
+  </header>
+
+  <!-- Posters - Adicionados recentemente -->
+  <section>
+    <div class="container mt-3">
+      <h5>Adicionados recentemente</h5>
+      <div class="row row-cols-1 row-cols-md-2" id="adicionadoRecentemente"></div>
+    </div> 
+  </section>
+
+  <!-- Modal - Paywall -->
+  <div class="modal fade" id="modalPermissao" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalPermissaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Pseudoflix - Sem Permissão</h5>
+        </div>
+        <div class="modal-body">
+          Você precisar estar logado ou possuir uma conta para continuar!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="window.location.href='login.html'">Entrar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
   </div>
+  
   <!-- Required JavaScript -->
   <!-- JQuery, Poppers, Bootstrap and FontAwesome -->
-  <script src="assets/js/utils/jquery-3.5.0.min.js"></script>
+  <script src="assets/js/utils/jquery-3.4.1.min.js"></script>
   <script src="assets/js/utils/popper.min.js"></script>
   <script src="assets/js/utils/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/4f1d3e52f2.js" crossorigin="anonymous"></script>
-  <!-- Custom Scripts -->
+  <!-- Custom JS -->
+  <script src="assets/js/index.js"></script>
   <script src="assets/js/login.js"></script>
-  <script src="assets/js/utils/jquery.md5.js"></script>
 </body>
 
 </html>

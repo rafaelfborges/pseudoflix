@@ -1,7 +1,21 @@
+const userSession = JSON.parse(window.localStorage.getItem('userSession'));
+
 $(document).ready(() => {
+  getUsuarioLogado();
   logIn();
   logOff();
 });
+
+function verificarPermissaoUsuario() {
+  if(userSession !== null){
+    return userSession.tipoUsuario;
+  } 
+  return false;
+}
+
+function getUsuarioLogado(){
+  return userSession !== null;
+}
 
 function logOff() {
   $("#logoff").click(() => {
@@ -28,7 +42,6 @@ function logIn() {
         dataType: 'JSON',
         success: (request) => {
           window.localStorage.setItem('userSession', JSON.stringify(request));
-          //console.log(JSON.parse(window.localStorage.getItem('userSession'))); //Converter localStorage para Objeto Json
           window.location.href = "index.html";
         },
         error: (request) => {

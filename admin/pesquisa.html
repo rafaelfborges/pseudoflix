@@ -2,7 +2,7 @@
 <html lang="pt">
 
 <head>
-  <title>Pseudoflix - Cadastro</title>
+  <title>Pseudoflix - Admin</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,65 +24,71 @@
 
 <body>
 <!-- NavBar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand font-weight-bolder" href="cadastro.html">
-    <img class="logo" src="../assets/images/logo.png" alt="Pseudoflix">
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand font-weight-bolder" href="index.html">
+      <img class="logo" src="../assets/images/logo.png" alt="Pseudoflix">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="cadastro.html">Cadastro</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="pesquisa.html">Pesquisa</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-          Meu perfil
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Minha Conta</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Sair</a>
-        </div>
-      </li>
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="cadastro.html">Cadastro</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="pesquisa.html">Pesquisar</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav text-right ml-3">
+        <li class="nav-item dropdown" id="usuarioMenu">
+          <a class="nav-link dropdown-toggle" href="#" id="usuario" role="button" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">Meu perfil</a>
+          <div class="dropdown-menu" aria-labelledby="usuario" id="opcoesUsuario">
+            <a class="dropdown-item" href="../index.html">Tela Principal</a>
+            <a class="dropdown-item" href="#">Minha Conta</a>
+            <a class="dropdown-item" href="#">Ajuda</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" id="logoff">Sair</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+  <!-- Content -->
+  <div class="container mt-2">
+    <h3 class="titulo text-center">Detalhes Filmes e Séries</h3>
+    <div class="row">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Título</th>
+          <th scope="col">Gênero</th>
+          <th scope="col">Data Lançamento</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Cadastrado Por</th>
+          <th scope="col">Ações</th>
+        </tr>
+        </thead>
+        <tbody id="pesquisa"></tbody>
+      </table>
+    </div>
   </div>
-</nav>
-<!-- Content -->
-<div class="container mt-2">
-  <h3 class="titulo text-center">Detalhes Filmes e Séries</h3>
-  <div class="row">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Título</th>
-        <th scope="col">Gênero</th>
-        <th scope="col">Data Lançamento</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Cadastrado Por</th>
-        <th scope="col">Ações</th>
-      </tr>
-      </thead>
-      <tbody id="pesquisa"></tbody>
-    </table>
-  </div>
-</div>
-<!-- Required JavaScript -->
-<!-- JQuery, Poppers, Bootstrap and FontAwesome -->
-<script src="../assets/js/utils/jquery-3.4.1.min.js"></script>
-<script src="../assets/js/utils/popper.min.js"></script>
-<script src="../assets/js/utils/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/4f1d3e52f2.js" crossorigin="anonymous"></script>
-<!-- Custom JS -->
-<script src="../assets/js/admin.js"></script>
+  <!-- Required JavaScript -->
+  <!-- JQuery, Poppers, Bootstrap and FontAwesome -->
+  <script src="../assets/js/utils/jquery-3.4.1.min.js"></script>
+  <script src="../assets/js/utils/popper.min.js"></script>
+  <script src="../assets/js/utils/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/4f1d3e52f2.js" crossorigin="anonymous"></script>
+  <!-- Custom JS -->
+  <script src="../assets/js/admin.js"></script>
+  <script src="../assets/js/auth.js"></script>
 </body>
 
 </html>

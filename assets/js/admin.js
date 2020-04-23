@@ -1,7 +1,18 @@
 $(document).ready(() => {
+  if(verificarPermissaoUsuario() !== "admin"){
+    window.location.href = "../index.html";
+  }
   cadastrarFilmeSerie();
   listarFilmeSerie();
+  verificaSessao();
 });
+
+function verificaSessao() {
+  if(getUsuarioLogado()){
+    $("#usuarioMenu").css("visibility", "visible");
+    $("#usuario").text(userSession.nome);
+  }
+}
 
 function cadastrarFilmeSerie() {
   $("#formCadastroAdmin").submit(function () {

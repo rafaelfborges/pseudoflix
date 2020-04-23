@@ -17,3 +17,7 @@
 #usuarioPesquisa {
   visibility: hidden;
 }
+
+#acessoAdmin {
+  display: none;
+}

@@ -1,9 +1,20 @@
-const userSession = JSON.parse(window.localStorage.getItem('userSession'));
-
 $(document).ready(() => {
   adicionadosRecentemente();
-  getUsuarioLogado();
+  verificaSessao();
 });
+
+function verificaSessao() {
+  if(getUsuarioLogado()){
+    $("#usuarioMenu").css("visibility", "visible");
+    $("#usuarioNotificacao").css("visibility", "visible");
+    $("#usuarioPesquisa").css("visibility", "visible");
+    if(verificarPermissaoUsuario() === "admin"){
+      $("#acessoAdmin").css("display", "block");
+    }
+    $("#login").css("display", "none");
+    $("#usuario").text(userSession.nome);
+  }
+}
 
 function adicionadosRecentemente() {
   $.ajax({
@@ -16,7 +27,7 @@ function adicionadosRecentemente() {
         $("#adicionadoRecentemente").append(
           `<div class="col mb-4">
           <div class="card card-post">
-            <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissaoUsuario()">
+            <a href="${item.url_imdb}" target="_blank" onclick="acaoUsuario();">
               <img src="${item.url_poster}" class="card-img-top" alt="${item.titulo}">
             </a>
             <div class="card-body">
@@ -34,23 +45,9 @@ function adicionadosRecentemente() {
   })
 }
 
-function getUsuarioLogado(){
-  if(userSession !== null){
-    $("#usuarioMenu").css("visibility", "visible");
-    $("#usuarioNotificacao").css("visibility", "visible");
-    $("#usuarioPesquisa").css("visibility", "visible");
-    $("#login").css("display", "none");
-    $("#usuario").text(userSession.nome);
-  } 
-}
-
-function verificarPermissaoUsuario() {
-  if(userSession !== null){
-    return userSession.tipoUsuario;
-  } else {
+function acaoUsuario() {
+  if(!verificarPermissaoUsuario()){
     $("#modalPermissao").modal();
     event.preventDefault();
   }
-  //return false;
-  
 }

@@ -1,7 +1,8 @@
 $(document).ready(() => {
-  if(!verificarPermissaoUsuario()){
+  if(verificarPermissaoUsuario() !== "admin") {
     window.location.href = "../index.html";
   }
+  
   visualizarFilmeSerie();
   verificaSessao();
   listarFilmeSerie();

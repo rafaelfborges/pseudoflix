@@ -25,17 +25,17 @@ function adicionadosRecentemente() {
     success: (response) => {
       response.map((item) => {
         $("#adicionadoRecentemente").append(
-          `<div class="col mb-4">
-          <div class="card card-post">
+          `<div class="col mb-4 cardSize">
             <a href="${item.url_imdb}" target="_blank" onclick="acaoUsuario();">
-              <img src="${item.url_poster}" class="card-img-top" alt="${item.titulo}">
+              <div class="card bg-dark text-white card-post">
+              <img src="${item.url_poster}" class="card-img" alt="${item.titulo}">
+              <div class="card-img-overlay cardShadow">
+                  <h5 class="card-title">${item.titulo}</h5>
+                  <p class="card-text">${item.descricao}</p>
+              </div>
+            </div>    
             </a>
-            <div class="card-body">
-                <h5 class="card-title">${item.titulo}</h5>
-                <p class="card-text">${item.descricao}</p>
-            </div>
-          </div>
-        </div>`
+          </div>`
         )
       });
     },

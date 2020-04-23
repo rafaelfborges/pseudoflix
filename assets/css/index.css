@@ -1,9 +1,9 @@
 .card-post img {
-  height: 250px;
+  height: 700px;
 }
 
-.card-post {
-  height: 100%;
+.cardShadow {
+  text-shadow: 2px 2px 4px #000000;
 }
 
 #usuarioMenu {

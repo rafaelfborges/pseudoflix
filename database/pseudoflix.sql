@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Abr-2020 às 22:01
+-- Tempo de geração: 01-Maio-2020 às 00:41
 -- Versão do servidor: 8.0.19
 -- versão do PHP: 7.4.3
 
@@ -25,18 +25,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `favoritos`
+--
+
+CREATE TABLE `favoritos` (
+  `user_id` int NOT NULL,
+  `movie_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `filmes_series`
 --
 
 CREATE TABLE `filmes_series` (
   `id` int NOT NULL,
-  `titulo` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `titulo` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `descricao` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `url_poster` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `url_imdb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `url_youtube` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `genero` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `data_lancamento` date NOT NULL,
-  `tipo` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `tipo` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `usuario_id` int NOT NULL,
   `data_criacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `data_atualizacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -46,12 +58,13 @@ CREATE TABLE `filmes_series` (
 -- Extraindo dados da tabela `filmes_series`
 --
 
-INSERT INTO `filmes_series` (`id`, `titulo`, `descricao`, `url_poster`, `url_imdb`, `genero`, `data_lancamento`, `tipo`, `usuario_id`, `data_criacao`) VALUES
-(1, 'Star Wars: Episode IX - The Rise of Skywalker', 'The surviving members of the resistance face the First Order once again, and the legendary conflict between the Jedi and the Sith reaches a new level.', 'https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SY1000_CR0,0,675,1000_AL_.jpg', 'https://www.imdb.com/title/tt2527338/', 'Ação', '1985-12-28', 'Filme', 1, '2020-04-22 20:40:52'),
-(2, 'Uncut Gems', 'With his debts mounting and angry collectors closing in, a fast-talking New York City jeweler risks everything in hope of staying afloat and alive.', 'https://m.media-amazon.com/images/M/MV5BZDhkMjUyYjItYWVkYi00YTM5LWE4MGEtY2FlMjA3OThlYmZhXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SY1000_CR0,0,640,1000_AL_.jpg', 'https://www.imdb.com/title/tt5727208/', 'Drama', '2020-01-31', 'Filme', 1, '2020-04-22 21:38:20'),
-(3, 'Friends', 'Follows the personal and professional lives of six twenty to thirty-something-year-old friends living in Manhattan.', 'https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg', 'https://www.imdb.com/title/tt0108778/', 'Comédia', '1996-02-06', 'Série', 1, '2020-04-22 21:41:48'),
-(4, 'Formula 1: Drive to Survive', 'Docuseries following the 2018 FIA Formula One World Championship.', 'https://m.media-amazon.com/images/M/MV5BMzVkMGU0YWMtOWQxMC00MjFhLTg1NjAtMDFlZTZlYzJlMjlhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg', 'https://www.imdb.com/title/tt8289930/', 'Documentário', '2019-03-09', 'Série', 1, '2020-04-22 21:45:28'),
-(5, 'Star Wars: Episode V - Return of Jedi', 'Teste', 'https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SY1000_CR0,0,675,1000_AL_.jpg', 'https://www.imdb.com/title/tt8289930/?ref_=rvi_tt', 'Ação', '1984-12-28', 'Filme', 1, '2020-04-23 19:46:52');
+INSERT INTO `filmes_series` (`id`, `titulo`, `descricao`, `url_poster`, `url_imdb`, `url_youtube`, `genero`, `data_lancamento`, `tipo`, `usuario_id`, `data_criacao`) VALUES
+(1, 'Star Wars: Episode IX - The Rise of Skywalker', 'The surviving members of the resistance face the First Order once again, and the legendary conflict between the Jedi and the Sith reaches a new level.', 'https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SY1000_CR0,0,675,1000_AL_.jpg', 'https://www.imdb.com/title/tt2527338/', '', 'Ação', '1985-12-28', 'Filme', 1, '2020-04-22 20:40:52'),
+(2, 'Uncut Gems', 'With his debts mounting and angry collectors closing in, a fast-talking New York City jeweler risks everything in hope of staying afloat and alive.', 'https://m.media-amazon.com/images/M/MV5BZDhkMjUyYjItYWVkYi00YTM5LWE4MGEtY2FlMjA3OThlYmZhXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SY1000_CR0,0,640,1000_AL_.jpg', 'https://www.imdb.com/title/tt5727208/', '', 'Drama', '2020-01-31', 'Filme', 1, '2020-04-22 21:38:20'),
+(3, 'Friends', 'Follows the personal and professional lives of six twenty to thirty-something-year-old friends living in Manhattan.', 'https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg', 'https://www.imdb.com/title/tt0108778/', '', 'Comédia', '1996-02-06', 'Série', 1, '2020-04-22 21:41:48'),
+(4, 'Formula 1: Drive to Survive', 'Docuseries following the 2018 FIA Formula One World Championship.', 'https://m.media-amazon.com/images/M/MV5BMzVkMGU0YWMtOWQxMC00MjFhLTg1NjAtMDFlZTZlYzJlMjlhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg', 'https://www.imdb.com/title/tt8289930/', '', 'Documentário', '2019-03-09', 'Série', 1, '2020-04-22 21:45:28'),
+(5, 'Star Wars: Episode V - Return of Jedi', 'Teste', 'https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SY1000_CR0,0,675,1000_AL_.jpg', 'https://www.imdb.com/title/tt8289930/?ref_=rvi_tt', '', 'Ação', '1984-12-28', 'Filme', 1, '2020-04-23 19:46:52'),
+(6, 'Back To The Future', 'teste', 'https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_CR0,0,643,1000_AL_.jpg', 'https://www.imdb.com/title/tt0088763/?ref_=nv_sr_srsg_0', '', 'Ação', '1985-12-28', 'Filme', 1, '2020-04-23 20:11:06');
 
 -- --------------------------------------------------------
 
@@ -88,11 +101,19 @@ CREATE TABLE `usuarios_dados` (
 
 INSERT INTO `usuarios_dados` (`id`, `email`, `senha`, `nome_completo`, `data_nascimento`, `telefone`, `cep`, `endereco`, `numero`, `complemento`, `cidade`, `bairro`, `tipo_usuario`, `tipo_assinatura`, `numero_cartao`, `digito_verificador`, `validade_cartao`, `flag_confirmacao`, `data_criacao`) VALUES
 (1, 'rafaelfborges@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Rafael Fernando Borges', '1985-12-28', '41991342581', '83035170', 'Rua Aristides França', 584, '', 'São José dos Pinhais', 'Cidade Jardim', 'admin', NULL, NULL, NULL, NULL, 1, '2020-04-21 20:10:42'),
-(2, 'rafaelfborges@hotmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Rafael Fernando Borges', '1985-12-28', '41991342581', '83035070', 'Rua Padre Alberto Müller', 382, '', 'São José dos Pinhais', 'Cidade Jardim', 'usuario', NULL, NULL, NULL, NULL, 1, '2020-04-23 05:24:41');
+(2, 'rafaelfborges@hotmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Rafael Fernando Borges', '1985-12-28', '41991342581', '83035070', 'Rua Padre Alberto Müller', 382, '', 'São José dos Pinhais', 'Cidade Jardim', 'usuario', NULL, NULL, NULL, NULL, 1, '2020-04-23 05:24:41'),
+(3, 'all.martins87@gmail.com', '2119eb59afc81b22cf8a4298047f9723', 'Andre Martins', '1987-10-15', '999746062', '80230-080', 'Rua Vinte e Quatro de Maio', 253, '903', 'Curitiba', 'Centro', 'admin', NULL, NULL, NULL, NULL, 1, '2020-04-23 20:15:39');
 
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices para tabela `favoritos`
+--
+ALTER TABLE `favoritos`
+  ADD PRIMARY KEY (`user_id`,`movie_id`),
+  ADD KEY `movie_id` (`movie_id`);
 
 --
 -- Índices para tabela `filmes_series`
@@ -117,17 +138,24 @@ ALTER TABLE `usuarios_dados`
 -- AUTO_INCREMENT de tabela `filmes_series`
 --
 ALTER TABLE `filmes_series`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios_dados`
 --
 ALTER TABLE `usuarios_dados`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restrições para despejos de tabelas
 --
+
+--
+-- Limitadores para a tabela `favoritos`
+--
+ALTER TABLE `favoritos`
+  ADD CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios_dados` (`id`),
+  ADD CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `filmes_series` (`id`);
 
 --
 -- Limitadores para a tabela `filmes_series`

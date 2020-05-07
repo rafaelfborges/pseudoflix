@@ -12,7 +12,7 @@ class Conexao {
         $dbname = 'pseudoflix';
         $host = 'localhost';
         $user = 'root';
-        $password = '';
+        $password = 'root';
         self::$instance = new PDO( 'mysql:dbname='.$dbname.';host='.$host.'', $user, $password );
       } catch ( PDOException $e ) {
         http_response_code(500);

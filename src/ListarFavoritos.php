@@ -9,7 +9,6 @@
         $id = $_GET['id'];
         $sql = "SELECT * FROM favoritos INNER JOIN filmes_series ON favoritos.movie_id = filmes_series.id
                 WHERE favoritos.user_id = '$id'";
-        }
       }
       $stmt = $pdo->prepare($sql);
       $stmt->execute();

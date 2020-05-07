@@ -26,7 +26,7 @@ function adicionadosRecentemente() {
       response.map((item) => {
         $("#adicionadoRecentemente").append(
           `<div class="col-md-2 mb-4 cardSize">
-            <a href="${item.url_imdb}" target="_blank" onclick="acaoUsuario();">
+            <a href="${item.url_imdb}" target="_blank" onclick="acaoUsuario(${item.id});">
               <div class="card bg-dark text-white card-post">
               <img src="${item.url_poster}" class="card-img" alt="${item.titulo}">
             </div>    
@@ -41,9 +41,11 @@ function adicionadosRecentemente() {
   })
 }
 
-function acaoUsuario() {
+function acaoUsuario(id) {
   if(!verificarPermissaoUsuario()){
     $("#modalPermissao").modal();
-    event.preventDefault();
+  } else {
+    $("#detalhesConteudo").modal();
   }
+  event.preventDefault();
 }

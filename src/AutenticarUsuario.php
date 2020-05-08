@@ -13,7 +13,7 @@
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_OBJ)->{'flag_confirmacao'};
       if($result == 1){
-        $sql = "SELECT nome_completo, email, senha, tipo_usuario FROM usuarios_dados WHERE email = '$email' AND senha = '$senha'";
+        $sql = "SELECT id, nome_completo, email, senha, tipo_usuario FROM usuarios_dados WHERE email = '$email' AND senha = '$senha'";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->rowCount();
@@ -21,9 +21,10 @@
           session_start();
           $userData = $stmt->fetch();
           $userSession = array(
-            "nome" => $userData[0],
-            "usuario" => $userData[1],
-            "tipoUsuario" => $userData[3],
+            "id" => $userData[0],
+            "nome" => $userData[1],
+            "usuario" => $userData[2],
+            "tipoUsuario" => $userData[4],
             "idSessao" => session_id()
           );
           http_response_code(200);

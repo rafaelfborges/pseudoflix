@@ -1,3 +1,5 @@
+const userId = JSON.parse(window.localStorage.getItem('id'));
+
 $(document).ready(() => {
     meusFavoritos();
     verificaSessao();
@@ -21,6 +23,7 @@ function meusFavoritos() {
       url: "src/ListarFavoritos.php",
       cache: false,
       type: "GET",
+      data: userId,
       dataType: 'JSON',
       success: (response) => {
         response.map((item) => {

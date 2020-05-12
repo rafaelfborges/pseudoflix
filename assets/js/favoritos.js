@@ -1,5 +1,3 @@
-const userId = JSON.parse(window.localStorage.getItem('id'));
-
 $(document).ready(() => {
     meusFavoritos();
     verificaSessao();

@@ -1,8 +1,8 @@
 <?php
   require 'ConexaoBD.php';
   // Dados recebidos pelo POST
-  $user_id = $_POST['###'];
-  $movie_id = $_POST['###'];
+  $user_id = $_POST['idUsuario'];
+  $movie_id = $_POST['idFilme'];
   
   $pdo = Conexao::getInstance();
   if($pdo != null){

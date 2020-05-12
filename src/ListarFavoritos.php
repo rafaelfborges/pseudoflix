@@ -12,6 +12,11 @@
                         filmes_series.data_lancamento, filmes_series.tipo FROM favoritos INNER JOIN filmes_series ON 
                         favoritos.movie_id = filmes_series.id WHERE favoritos.user_id = '$id'";
       }
+      if(isset($_GET['idUsuario']) && isset($_GET['idFilme'])) {
+        $idUser = $_GET['idUsuario'];
+        $idMovie = $_GET['idFilme'];
+        $sql = "SELECT * FROM favoritos WHERE user_id = '$idUser' AND movie_id = '$idMovie'";
+      }
       $stmt = $pdo->prepare($sql);
       $stmt->execute();
       http_response_code(200);

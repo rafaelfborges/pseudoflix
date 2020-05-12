@@ -48,7 +48,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Mais recentes</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="usuarioFavoritos">
             <a class="nav-link" href="favoritos.html">Meus Favoritos</a>
           </li>
         </ul>
@@ -116,19 +116,11 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body mx-auto">
+        <div class="modal-body">
           <div class="row">
-            <div class="col-md-8 text-center">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/sEE-3P9kKyE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="col-md-8" id="conteudoVideo">
             </div>
-            <div class="col-md-4">
-              <h5 class="card-title">${item.titulo}</h5>
-              <p class="card-text mb-0"><b>Descrição:</b> ${item.descricao}</p>
-              <p class="card-text mb-0"><b>Gênero:</b> ${item.genero}</p>
-              <p class="card-text mb-0"><b>Data Lançamento:</b> ${item.data_lancamento}</p>
-              <p class="card-text mb-0"><b>Tipo:</b> ${item.tipo}</p>
-              <p class="card-text mb-0"><b>Adicionar Favorito: </b><i class="far fa-star"></i></p>
-            </div>
+            <div class="col-md-4" id="conteudoDescricao"></div>
           </div>
         </div>
         <div class="modal-footer">

@@ -73,7 +73,7 @@ function detalhesFilmesSeries(id) {
         </div>
         `
       )
-      
+      verificarFavorito(id, userSession.id);
       $("#conteudoDescricao").empty().append(
         `<h5 class="card-title">${response[0].titulo}</h5>
          <p class="card-text mb-0"><b>Descrição:</b> ${response[0].descricao}</p>
@@ -86,10 +86,49 @@ function detalhesFilmesSeries(id) {
          </p>
          <p class="card-text mb-0">
             <b>Adicionar Favorito: </b>
-            <i class="fas fa-star" id="favorito"></i> 
+            <i class="fas fa-star" id="favorito" onMouseOver="this.style.cursor='pointer'"
+             onclick="salvarNoFavoritos('${id}', userSession.id)"></i> 
          </p>
         `
       )
+    },
+    error: (request) => {
+      console.log(request);
+    }
+  })
+}
+function salvarNoFavoritos(idFilme, idUsuario) {
+  $.ajax({
+    url: "src/SalvarFavorito.php",
+    cache: false,
+    data: {idFilme:idFilme, idUsuario:idUsuario},
+    type: "POST",
+    dataType: 'JSON',
+    success: (response) => {
+      alert("Favoritado com sucesso!");
+      $("#favorito").css("color", "yellow");
+    },
+    error: (request) => {
+      if (request.responseJSON[0].includes(1062)) {
+        alert("Já está salvo nos favoritos! Verifique em Meus Favoritos.")
+      } else if (request.status === 500) {
+        alert("Erro! Contate um administrador. Mensagem: " + request.responseText);
+      }
+    }
+  })
+}
+
+function verificarFavorito(idFilme, idUsuario) {
+  $.ajax({
+    url: "src/ListarFavoritos.php",
+    cache: false,
+    type: "GET",
+    data: {idFilme:idFilme, idUsuario:idUsuario},
+    dataType: 'JSON',
+    success: (response) => {
+      if(response.length > 0){
+        $("#favorito").css("color", "yellow");
+      }
     },
     error: (request) => {
       console.log(request);

@@ -21,7 +21,7 @@ function meusFavoritos() {
       url: "src/ListarFavoritos.php",
       cache: false,
       type: "GET",
-      data: userId,
+      data: {id: userSession.id},
       dataType: 'JSON',
       success: (response) => {
         response.map((item) => {

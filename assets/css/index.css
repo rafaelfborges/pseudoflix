@@ -1,7 +1,5 @@
-
-
-.cardShadow {
-  text-shadow: 2px 2px 4px #000000;
+.card {
+  min-height: 100%;
 }
 
 #usuarioMenu {
@@ -18,4 +16,8 @@
 
 #acessoAdmin {
   display: none;
+}
+
+#favorito {
+  color: darkgrey;
 }

@@ -9,5 +9,6 @@
     <orderEntry type="library" name="popper.js" level="application" />
     <orderEntry type="library" name="4f1d3e52f2" level="application" />
     <orderEntry type="library" name="jquery-3.4.1.slim" level="application" />
+    <orderEntry type="library" name="sweetalert" level="application" />
   </component>
 </module>

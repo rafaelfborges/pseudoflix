@@ -7,11 +7,11 @@
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       if(isset($_GET['id'])) {
         $id = $_GET['id'];
-        $sql = "SELECT filmes_series.id, titulo, descricao, url_poster, url_imdb, url_youtube, genero, data_lancamento, 
+        $sql = "SELECT filmes_series.id AS movie_id, titulo, descricao, url_poster, url_imdb, url_youtube, genero, data_lancamento, 
                      tipo, usuarios_dados.nome_completo AS usuario, filmes_series.data_atualizacao, filmes_series.data_criacao 
                 FROM filmes_series INNER JOIN usuarios_dados ON filmes_series.usuario_id = usuarios_dados.id WHERE filmes_series.id = '$id'";
       } else {
-        $sql = "SELECT filmes_series.id, titulo, descricao, url_poster, url_imdb, url_youtube, genero, data_lancamento, 
+        $sql = "SELECT filmes_series.id AS movie_id, titulo, descricao, url_poster, url_imdb, url_youtube, genero, data_lancamento, 
                      tipo, usuarios_dados.nome_completo AS usuario, filmes_series.data_atualizacao, filmes_series.data_criacao 
                 FROM filmes_series INNER JOIN usuarios_dados ON filmes_series.usuario_id = usuarios_dados.id";
       }

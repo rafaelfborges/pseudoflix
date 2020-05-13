@@ -38,7 +38,7 @@ function exibirDetalhesConteudo(id) {
          <p class="card-text mb-0">
             <b>Adicionar Favorito: </b>
             <i class="fas fa-star" id="favorito" onMouseOver="this.style.cursor='pointer'"
-             onclick="salvarFavorito('${id}', userSession.id)"></i> 
+             onclick="salvarFavorito('${id}', userSession.id, '${response[0].titulo}')"></i> 
          </p>
         `
       )
@@ -60,8 +60,15 @@ function listarConteudosRecentes() {
         <h5>Adicionados recentemente</h5>
         <div class="row" id="adicionadoRecentemente"></div>
       `)
-      response.map((item) => {
+      if(response.length === 0) {
         $("#adicionadoRecentemente").append(`
+          <div class="text-center mt-4 w-100">
+            <p>Não há recentes para mostrar!</p>
+          </div>
+        `);
+      } else {
+        response.map((item) => {
+          $("#adicionadoRecentemente").append(`
           <div class="col-md-2 mb-4">
             <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
               <div class="card bg-dark">
@@ -70,7 +77,8 @@ function listarConteudosRecentes() {
             </a>
           </div>
         `)
-      });
+        });
+      }
     },
     error: (request) => {
       console.log(request);
@@ -86,13 +94,20 @@ function listarFavoritos() {
     data: {id: userSession.id},
     dataType: 'JSON',
     success: (response) => {
-      response.map((item) => {
-        $("#conteudoPrincipal").empty().append(`
-          <h5>Adicionados recentemente</h5>
-          <div class="row" id="meusFavoritos"></div>
-        `)
-        $("#meusFavoritos").append(
-          `<div class="col-md-2 mb-4">
+      $("#conteudoPrincipal").empty().append(`
+        <h5>Meus Favoritos</h5>
+        <div class="row" id="meusFavoritos"></div>
+      `)
+      if(response.length === 0) {
+        $("#meusFavoritos").append(`
+          <div class="text-center mt-4 w-100">
+            <p>Não há favoritos para mostrar!</p>
+          </div>
+        `);
+      } else {
+        response.map((item) => {
+          $("#meusFavoritos").append(
+            `<div class="col-md-2 mb-4">
             <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
               <div class="card bg-dark">
                 <img src="${item.url_poster}" class="card-img" alt="${item.titulo}">
@@ -100,7 +115,8 @@ function listarFavoritos() {
             </a>
           </div>
         `)
-      });
+        }); 
+      }
     },
     error: (request) => {
       console.log(request);
@@ -108,7 +124,7 @@ function listarFavoritos() {
   })
 }
 
-function salvarFavorito(idFilme, idUsuario) {
+function salvarFavorito(idFilme, idUsuario, tituloConteudo) {
   $.ajax({
     url: "src/SalvarFavorito.php",
     cache: false,
@@ -116,15 +132,45 @@ function salvarFavorito(idFilme, idUsuario) {
     type: "POST",
     dataType: 'JSON',
     success: (response) => {
-      alert("Favoritado com sucesso!");
+      swal(tituloConteudo, "Foi favoritado com sucesso!", "success");
       $("#favorito").css("color", "yellow");
     },
     error: (request) => {
       if (request.responseJSON[0].includes(1062)) {
-        alert("Já está salvo nos favoritos! Verifique em Meus Favoritos.")
+        swal({
+          title: "Você tem certeza?",
+          text: "Que vai remover, " + tituloConteudo + ", dos favoritos?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then((willDelete) => {
+          if (willDelete) {
+            console.log(removerFavorito(idFilme, idUsuario));
+            $("#favorito").css("color", "darkgrey");
+          }
+        });
       } else if (request.status === 500) {
         alert("Erro! Contate um administrador. Mensagem: " + request.responseText);
       }
+    }
+  })
+}
+
+function removerFavorito(idFilme, idUsuario) {
+  $.ajax({
+    url: "src/RemoverFavorito.php",
+    cache: false,
+    type: "POST",
+    data: {idFilme: idFilme, idUsuario: idUsuario},
+    dataType: 'JSON',
+    success: (response) => {
+      if (response.length > 0) {
+        return true;
+      }
+    },
+    error: (request) => {
+      console.log(request);
+      return false;
     }
   })
 }
@@ -151,7 +197,6 @@ function verificarPermissao(movieId) {
   if (!verificarPermissaoUsuario()) {
     $("#modalPermissao").modal();
   } else {
-    console.log(movieId);
     exibirDetalhesConteudo(movieId);
     $("#detalhesConteudo").modal();
   }

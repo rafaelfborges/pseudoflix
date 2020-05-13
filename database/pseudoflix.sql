@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01-Maio-2020 às 00:41
+-- Tempo de geração: 13-Maio-2020 às 11:50
 -- Versão do servidor: 8.0.19
 -- versão do PHP: 7.4.3
 
@@ -33,6 +33,14 @@ CREATE TABLE `favoritos` (
   `movie_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Extraindo dados da tabela `favoritos`
+--
+
+INSERT INTO `favoritos` (`user_id`, `movie_id`) VALUES
+(1, 1),
+(1, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -59,12 +67,13 @@ CREATE TABLE `filmes_series` (
 --
 
 INSERT INTO `filmes_series` (`id`, `titulo`, `descricao`, `url_poster`, `url_imdb`, `url_youtube`, `genero`, `data_lancamento`, `tipo`, `usuario_id`, `data_criacao`) VALUES
-(1, 'Star Wars: Episode IX - The Rise of Skywalker', 'The surviving members of the resistance face the First Order once again, and the legendary conflict between the Jedi and the Sith reaches a new level.', 'https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SY1000_CR0,0,675,1000_AL_.jpg', 'https://www.imdb.com/title/tt2527338/', '', 'Ação', '1985-12-28', 'Filme', 1, '2020-04-22 20:40:52'),
-(2, 'Uncut Gems', 'With his debts mounting and angry collectors closing in, a fast-talking New York City jeweler risks everything in hope of staying afloat and alive.', 'https://m.media-amazon.com/images/M/MV5BZDhkMjUyYjItYWVkYi00YTM5LWE4MGEtY2FlMjA3OThlYmZhXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SY1000_CR0,0,640,1000_AL_.jpg', 'https://www.imdb.com/title/tt5727208/', '', 'Drama', '2020-01-31', 'Filme', 1, '2020-04-22 21:38:20'),
-(3, 'Friends', 'Follows the personal and professional lives of six twenty to thirty-something-year-old friends living in Manhattan.', 'https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg', 'https://www.imdb.com/title/tt0108778/', '', 'Comédia', '1996-02-06', 'Série', 1, '2020-04-22 21:41:48'),
-(4, 'Formula 1: Drive to Survive', 'Docuseries following the 2018 FIA Formula One World Championship.', 'https://m.media-amazon.com/images/M/MV5BMzVkMGU0YWMtOWQxMC00MjFhLTg1NjAtMDFlZTZlYzJlMjlhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg', 'https://www.imdb.com/title/tt8289930/', '', 'Documentário', '2019-03-09', 'Série', 1, '2020-04-22 21:45:28'),
-(5, 'Star Wars: Episode V - Return of Jedi', 'Teste', 'https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SY1000_CR0,0,675,1000_AL_.jpg', 'https://www.imdb.com/title/tt8289930/?ref_=rvi_tt', '', 'Ação', '1984-12-28', 'Filme', 1, '2020-04-23 19:46:52'),
-(6, 'Back To The Future', 'teste', 'https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_CR0,0,643,1000_AL_.jpg', 'https://www.imdb.com/title/tt0088763/?ref_=nv_sr_srsg_0', '', 'Ação', '1985-12-28', 'Filme', 1, '2020-04-23 20:11:06');
+(1, 'Star Wars: Episode IX - The Rise of Skywalker', 'The surviving members of the resistance face the First Order once again, and the legendary conflict between the Jedi and the Sith reaches a new level.', 'https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SY1000_CR0,0,675,1000_AL_.jpg', 'https://www.imdb.com/title/tt2527338/', 'https://www.youtube.com/watch?v=LYutHgaXjyI', 'Ação', '1985-12-28', 'Filme', 1, '2020-04-22 20:40:52'),
+(2, 'Uncut Gems', 'With his debts mounting and angry collectors closing in, a fast-talking New York City jeweler risks everything in hope of staying afloat and alive.', 'https://m.media-amazon.com/images/M/MV5BZDhkMjUyYjItYWVkYi00YTM5LWE4MGEtY2FlMjA3OThlYmZhXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SY1000_CR0,0,640,1000_AL_.jpg', 'https://www.imdb.com/title/tt5727208/', 'https://www.youtube.com/watch?v=OEEZ_wFAKyw', 'Drama', '2020-01-31', 'Filme', 1, '2020-04-22 21:38:20'),
+(3, 'Friends', 'Follows the personal and professional lives of six twenty to thirty-something-year-old friends living in Manhattan.', 'https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg', 'https://www.imdb.com/title/tt0108778/', 'https://www.youtube.com/watch?v=Gpa5S8DgPzs', 'Comédia', '1996-02-06', 'Série', 1, '2020-04-22 21:41:48'),
+(4, 'Formula 1: Drive to Survive', 'Docuseries following the 2018 FIA Formula One World Championship.', 'https://m.media-amazon.com/images/M/MV5BMzVkMGU0YWMtOWQxMC00MjFhLTg1NjAtMDFlZTZlYzJlMjlhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg', 'https://www.imdb.com/title/tt8289930/', 'https://www.youtube.com/watch?v=wtJPe1ksS6E', 'Documentário', '2019-03-09', 'Série', 1, '2020-04-22 21:45:28'),
+(5, 'Star Wars: Episode V - Return of Jedi', 'After a daring mission to rescue Han Solo from Jabba the Hutt, the Rebels dispatch to Endor to destroy the second Death Star. Meanwhile, Luke struggles to help Darth Vader back from the dark side without falling into the Emperor\'s trap.', 'https://m.media-amazon.com/images/M/MV5BOWZlMjFiYzgtMTUzNC00Y2IzLTk1NTMtZmNhMTczNTk0ODk1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SY999_CR0,0,644,999_AL_.jpg', 'https://www.imdb.com/title/tt8289930/?ref_=rvi_tt', 'https://www.youtube.com/watch?v=7L8p7_SLzvU', 'Ação', '1984-12-28', 'Filme', 1, '2020-04-23 19:46:52'),
+(6, 'Back To The Future', 'teste', 'https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_CR0,0,643,1000_AL_.jpg', 'https://www.imdb.com/title/tt0088763/?ref_=nv_sr_srsg_0', 'https://www.youtube.com/watch?v=qvsgGtivCgs', 'Ação', '1985-12-28', 'Filme', 1, '2020-04-23 20:11:06'),
+(7, 'The Fresh Prince of Bel-Air', 'A streetwise, poor young man from Philadelphia is sent by his mother to live with his aunt, uncle and cousins in their Bel-Air mansion.', 'https://m.media-amazon.com/images/M/MV5BOGUxOWQ4MzAtMmJjYS00M2U5LWEwZTAtYTc1YmZhNjg2NDRlXkEyXkFqcGdeQXVyMTYzMDM0NTU@._V1_.jpg', 'https://www.imdb.com/title/tt0098800/', 'https://www.youtube.com/watch?v=ec6NXh0juGA', 'Comédia', '1990-01-01', 'Série', 1, '2020-05-12 09:21:30');
 
 -- --------------------------------------------------------
 
@@ -138,7 +147,7 @@ ALTER TABLE `usuarios_dados`
 -- AUTO_INCREMENT de tabela `filmes_series`
 --
 ALTER TABLE `filmes_series`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios_dados`

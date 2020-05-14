@@ -51,19 +51,17 @@ function listarFilmeSerie() {
       response.map((item) => {
         $("#pesquisa").append(
           `<tr>
-            <td>${item.id}</td>
+            <td>${item.movie_id}</td>
             <td>${item.titulo}</td>
             <td>${item.genero}</td>
             <td>${item.data_lancamento}</td>
             <td>${item.tipo}</td>
             <td>${item.usuario}</td>
             <td>
-                <a href="#modalDetalhes" data-toggle="modal" data-target='#modalDetalhes' data-id='${item.id}'>
+                <a href="#modalDetalhes" data-toggle="modal" data-target='#modalDetalhes' data-id='${item.movie_id}'>
                     <i class="fas fa-eye"></i>
                 </a> -  
-                <a href="#modalEditar" data-toggle="modal" data-target='#modalDetalhes' data-id='${item.id}'>
-                    <i class="fas fa-edit"></i>
-                </a> -  
+                <a href="#modalEditar"><i class="fas fa-edit"></i></a> -  
                 <a href="#excluir"><i class="fas fa-trash"></i></a>
             </td>
           </tr>`

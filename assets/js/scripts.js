@@ -1,6 +1,7 @@
 $(document).ready(() => {
   listarConteudosRecentes();
   listarFilmes();
+  listarSeries();
   verificarSessao();
   listarPesquisa();
 });
@@ -108,6 +109,43 @@ function listarFilmes() {
       } else {
         response.map((item) => {
           $("#filmes").append(`
+          <div class="col-md-2 mb-4">
+            <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
+              <div class="card bg-dark">
+                <img src="${item.url_poster}" class="img-fluid" alt="${item.titulo}">
+              </div>    
+            </a>
+          </div>
+        `)
+        });
+      }
+    },
+    error: (request) => {
+      console.log(request);
+    }
+  })
+}
+
+function listarSeries() {
+  $.ajax({
+    url: "src/ListarSerie.php",
+    cache: false,
+    type: "GET",
+    dataType: 'JSON',
+    success: (response) => {
+      $("#conteudoPrincipal").append(`
+        <h5>Séries</h5>
+        <div class="row" id="series"></div>
+      `)
+      if(response.length === 0) {
+        $("#series").append(`
+          <div class="text-center mt-4 w-100">
+            <p>Não há recentes para mostrar!</p>
+          </div>
+        `);
+      } else {
+        response.map((item) => {
+          $("#series").append(`
           <div class="col-md-2 mb-4">
             <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
               <div class="card bg-dark">

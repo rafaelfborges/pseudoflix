@@ -1,11 +1,13 @@
 $(document).ready(() => {
   listarConteudosRecentes();
+  listarFilmes();
   verificarSessao();
+  listarPesquisa();
 });
 
 function exibirDetalhesConteudo(id) {
   $.ajax({
-    url: "src/ListarFilmeSerie.php",
+    url: "src/ListarConteudo.php",
     cache: false,
     type: "GET",
     data: 'id=' + id,
@@ -51,7 +53,7 @@ function exibirDetalhesConteudo(id) {
 
 function listarConteudosRecentes() {
   $.ajax({
-    url: "src/ListarFilmeSerie.php",
+    url: "src/ListarConteudo.php",
     cache: false,
     type: "GET",
     dataType: 'JSON',
@@ -69,6 +71,43 @@ function listarConteudosRecentes() {
       } else {
         response.map((item) => {
           $("#adicionadoRecentemente").append(`
+          <div class="col-md-2 mb-4">
+            <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
+              <div class="card bg-dark">
+                <img src="${item.url_poster}" class="img-fluid" alt="${item.titulo}">
+              </div>    
+            </a>
+          </div>
+        `)
+        });
+      }
+    },
+    error: (request) => {
+      console.log(request);
+    }
+  })
+}
+
+function listarFilmes() {
+  $.ajax({
+    url: "src/ListarFilme.php",
+    cache: false,
+    type: "GET",
+    dataType: 'JSON',
+    success: (response) => {
+      $("#conteudoPrincipal").append(`
+        <h5>Filmes</h5>
+        <div class="row" id="filmes"></div>
+      `)
+      if(response.length === 0) {
+        $("#filmes").append(`
+          <div class="text-center mt-4 w-100">
+            <p>Não há recentes para mostrar!</p>
+          </div>
+        `);
+      } else {
+        response.map((item) => {
+          $("#filmes").append(`
           <div class="col-md-2 mb-4">
             <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
               <div class="card bg-dark">
@@ -194,27 +233,32 @@ function verificarFavorito(idFilme, idUsuario) {
 }
 
 function listarPesquisa() {
-  $.ajax({
-    url: "src/Pesquisa.php",
-    cache: false,
-    type: "GET",
-    data: {pesquisar: pesquisar},
-    dataType: 'JSON',
-    success: (response) => {
-      $("#conteudoPrincipal").empty().append(`
-        <h5>Meus Resultados</h5>
-        <div class="row" id="meusResultados"></div>
-      `)
-      if(response.length === 0) {
-        $("#meusResultados").append(`
+  $("#usuarioPesquisa").submit(function () {
+    let pesquisa = $(this).serializeArray();
+    $.ajax({
+      url: "src/Pesquisar.php",
+      cache: false,
+      type: "GET",
+      data: $.param(pesquisa),
+      dataType: 'JSON',
+      success: (response) => {
+        console.log(response);
+        
+        $("#conteudoPrincipal").empty().append(`
+            <h5>Meus Resultados</h5>
+            <div class="row" id="meusResultados"></div>
+        `)
+        
+        if(response.length === 0) {
+          $("#meusResultados").append(`
           <div class="text-center mt-4 w-100">
             <p>Não há resultados para mostrar!</p>
           </div>
         `);
-      } else {
-        response.map((item) => {
-          $("#meusResultados").append(
-            `<div class="col-md-2 mb-4">
+        } else {
+          response.map((item) => {
+            $("#meusResultados").append(
+              `<div class="col-md-2 mb-4">
             <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
               <div class="card bg-dark">
                 <img src="${item.url_poster}" class="card-img" alt="${item.titulo}">
@@ -222,15 +266,16 @@ function listarPesquisa() {
             </a>
           </div>
         `)
-        }); 
+          });
+        }
+      },
+      error: (request) => {
+        console.log(request);
       }
-    },
-    error: (request) => {
-      console.log(request);
-    }
-  })
+    })
+    event.preventDefault();
+  });
 }
-
 
 function verificarPermissao(movieId) {
   if (!verificarPermissaoUsuario()) {

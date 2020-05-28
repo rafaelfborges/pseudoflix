@@ -43,7 +43,7 @@ function cadastrarFilmeSerie() {
 
 function listarFilmeSerie() {
   $.ajax({
-    url: "../src/ListarFilmeSerie.php",
+    url: "../src/ListarConteudo.php",
     cache: false,
     type: "GET",
     dataType: 'JSON',
@@ -79,7 +79,7 @@ function visualizarFilmeSerie() {
     let button = $(event.relatedTarget)
     let id = button.data('id')
     $.ajax({
-      url: '../src/ListarFilmeSerie.php',
+      url: '../src/ListarConteudo.php',
       type: 'GET',
       data: 'id=' + id,
       dataType: 'JSON',

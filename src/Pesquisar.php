@@ -1,6 +1,6 @@
 <?php
   require 'ConexaoBD.php';
-    
+
   $pdo = Conexao::getInstance();
   if($pdo != null){
     try {

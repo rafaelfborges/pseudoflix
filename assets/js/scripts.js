@@ -1,10 +1,24 @@
-$(document).ready(() => {
-  listarConteudosRecentes();
-  listarFilmes();
-  listarSeries();
+$(document).ready(async () => {
+  await listarConteudos();
   verificarSessao();
   listarPesquisa();
 });
+
+async function listarConteudos() {
+  //Try abaixo é igual a execução do código abaixo
+  /*listarConteudosRecentes() 
+    .then(() => listarFilmes())
+    .then(() => listarSeries())
+    .catch((e) => console.log(e))*/
+  
+  try {
+    await listarConteudosRecentes();
+    await listarFilmes();
+    await listarSeries();
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 function exibirDetalhesConteudo(id) {
   $.ajax({
@@ -53,25 +67,26 @@ function exibirDetalhesConteudo(id) {
 }
 
 function listarConteudosRecentes() {
-  $.ajax({
-    url: "src/ListarConteudo.php",
-    cache: false,
-    type: "GET",
-    dataType: 'JSON',
-    success: (response) => {
-      $("#conteudoPrincipal").empty().append(`
+  return new Promise(function (res, err) {
+    $.ajax({
+      url: "src/ListarConteudo.php",
+      cache: false,
+      type: "GET",
+      dataType: 'JSON',
+      success: (response) => {
+        $("#conteudoPrincipal").append(`
         <h5>Adicionados recentemente</h5>
         <div class="row" id="adicionadoRecentemente"></div>
       `)
-      if(response.length === 0) {
-        $("#adicionadoRecentemente").append(`
+        if(response.length === 0) {
+          $("#adicionadoRecentemente").append(`
           <div class="text-center mt-4 w-100">
             <p>Não há recentes para mostrar!</p>
           </div>
         `);
-      } else {
-        response.map((item) => {
-          $("#adicionadoRecentemente").append(`
+        } else {
+          response.map((item) => {
+            $("#adicionadoRecentemente").append(`
           <div class="col-md-2 mb-4">
             <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
               <div class="card bg-dark">
@@ -80,35 +95,39 @@ function listarConteudosRecentes() {
             </a>
           </div>
         `)
-        });
+          });
+        }
+        res();
+      },
+      error: (request) => {
+        console.log(request);
+        err();
       }
-    },
-    error: (request) => {
-      console.log(request);
-    }
-  })
+    })
+  });
 }
 
 function listarFilmes() {
-  $.ajax({
-    url: "src/ListarFilme.php",
-    cache: false,
-    type: "GET",
-    dataType: 'JSON',
-    success: (response) => {
-      $("#conteudoPrincipal").append(`
+  new Promise(function (res, err) {
+    $.ajax({
+      url: "src/ListarFilme.php",
+      cache: false,
+      type: "GET",
+      dataType: 'JSON',
+      success: (response) => {
+        $("#conteudoPrincipal").append(`
         <h5>Filmes</h5>
         <div class="row" id="filmes"></div>
       `)
-      if(response.length === 0) {
-        $("#filmes").append(`
+        if(response.length === 0) {
+          $("#filmes").append(`
           <div class="text-center mt-4 w-100">
             <p>Não há recentes para mostrar!</p>
           </div>
         `);
-      } else {
-        response.map((item) => {
-          $("#filmes").append(`
+        } else {
+          response.map((item) => {
+            $("#filmes").append(`
           <div class="col-md-2 mb-4">
             <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
               <div class="card bg-dark">
@@ -117,35 +136,39 @@ function listarFilmes() {
             </a>
           </div>
         `)
-        });
+          });
+        }
+        res();
+      },
+      error: (request) => {
+        console.log(request);
+        err();
       }
-    },
-    error: (request) => {
-      console.log(request);
-    }
+    })
   })
 }
 
 function listarSeries() {
-  $.ajax({
-    url: "src/ListarSerie.php",
-    cache: false,
-    type: "GET",
-    dataType: 'JSON',
-    success: (response) => {
-      $("#conteudoPrincipal").append(`
+  new Promise(function (res, err) {
+    $.ajax({
+      url: "src/ListarSerie.php",
+      cache: false,
+      type: "GET",
+      dataType: 'JSON',
+      success: (response) => {
+        $("#conteudoPrincipal").append(`
         <h5>Séries</h5>
         <div class="row" id="series"></div>
       `)
-      if(response.length === 0) {
-        $("#series").append(`
+        if(response.length === 0) {
+          $("#series").append(`
           <div class="text-center mt-4 w-100">
             <p>Não há recentes para mostrar!</p>
           </div>
         `);
-      } else {
-        response.map((item) => {
-          $("#series").append(`
+        } else {
+          response.map((item) => {
+            $("#series").append(`
           <div class="col-md-2 mb-4">
             <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
               <div class="card bg-dark">
@@ -154,12 +177,15 @@ function listarSeries() {
             </a>
           </div>
         `)
-        });
+          });
+        }
+        res();
+      },
+      error: (request) => {
+        console.log(request);
+        err();
       }
-    },
-    error: (request) => {
-      console.log(request);
-    }
+    })
   })
 }
 

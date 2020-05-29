@@ -29,7 +29,7 @@ function logIn() {
     const email = $('#inputEmail').val();
     const password = $.MD5($('#inputSenha').val());
     if(email === "" || password === ""){
-      alert("Preencha os campos com seu usuário e senha.");  
+      swal("Oops!!!", "Preencha os campos com seu usuário e senha.", "warning");
     } else {
       $.ajax({
         url: 'src/Usuario.php?acao=autenticar',
@@ -45,12 +45,12 @@ function logIn() {
           window.localStorage.setItem('userSession', JSON.stringify(message));
           window.location.href = "index.html";
         },
-        error: (response) => {
-          const { status, responseText } = response;
+        error: (request) => {
+          const { status, responseText, responseJSON } = request;
           if (status === 401) {
-            alert("Usuário ou senha inválidos. Tente novamente!")
+            swal("Oops!!!", responseJSON.message + " Tente novamente!", "error");
           } else if (status === 500) {
-            alert("Erro! Contate um administrador. Mensagem: " + responseText);
+            swal("Oops!!!", "Erro! Contate um administrador. Mensagem: " + responseText, "error");
           }
         }
       });

@@ -1,5 +1,6 @@
-<?php /** @noinspection PhpUndefinedVariableInspection */
-require 'ConsultaDB.php';
+<?php
+
+require 'database/ConsultaDB.php';
 require 'utils/PHPMailer/PHPMailerAutoload.php';
 require 'utils/ResponseStatus.php';
 require 'utils/ValidarReqPost.php';
@@ -18,7 +19,7 @@ if(!empty($_GET)){
 
     case "autenticar":
       if(verificarExistenciaCamposPost($_POST))
-        autenticarUsuario();
+        autenticarUsuario($_POST['email'], $_POST['senha']);
       break;
       
     default:
@@ -30,10 +31,7 @@ if(!empty($_GET)){
   sendResponseCode($code, $msg);
 }
 
-function autenticarUsuario() {
-  $email = $_POST['email'];
-  $senha = $_POST['senha'];
-  
+function autenticarUsuario($email, $senha) {
   if(validarFlagConfirmacao($email)){
     $query = "SELECT id, nome_completo, email, senha, tipo_usuario FROM usuarios_dados WHERE email = '$email' AND senha = '$senha'";
     $result = consultaBanco($query);
@@ -49,6 +47,8 @@ function autenticarUsuario() {
         "idSessao" => session_id()
       );
       sendResponseCode(200, $userSession);
+    } else {
+      sendResponseCode(401, "Usuário ou senha inválidos.");
     }
   }
 }
@@ -68,7 +68,7 @@ function validarFlagConfirmacao($email){
 }
 
 function cadastrarUsuario(){
-  $email = $_POST["email"];
+  $email = $_POST['email'];
   $senha = $_POST['senha'];
   $nome = $_POST['nomeCompleto'];
   //Converte a data dd/mm/yyyy para o formato yyyy/mm/dd

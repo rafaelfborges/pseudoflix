@@ -40,16 +40,16 @@
             <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudos()">Início</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarSeries()">Séries</a>
+            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudoPorTipo('seriado', 18)">Seriados</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarFilmes()">Filmes</a>
+            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudoPorTipo('filme', 18)">Filmes</a>
           </li>
           <li class="nav-item" id="usuarioConteudosRecentes">
-            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudosRecentes()">Mais recentes</a>
+            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudosRecentes(18)">Recentes</a>
           </li>
           <li class="nav-item" id="usuarioFavoritos">
-            <a class="nav-link" href="#" onclick="listarFavoritos()">Meus Favoritos</a>
+            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarFavoritos()">Meus Favoritos</a>
           </li>
         </ul>
 

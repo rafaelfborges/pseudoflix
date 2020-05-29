@@ -82,13 +82,22 @@
   </div>
 
   <!-- Modal - Detalhes Filmes e Series -->
-  <div class="modal fade" id="modalDetalhes" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalDetalhesLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal fade" id="detalhesConteudo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Pseudoflix - Detalhes</h5>
+          <h5 class="modal-title" id="detalhesConteudoTitulo">PseudoFlix - Detalhes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="modal-body mx-auto" id="detalhes"></div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-8" id="conteudoVideo">
+            </div>
+            <div class="col-md-4" id="conteudoDescricao"></div>
+          </div>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
         </div>
@@ -97,12 +106,14 @@
   </div>
 
   <!-- Required JavaScript -->
-  <!-- JQuery, Poppers, Bootstrap and FontAwesome -->
+  <!-- JQuery, Poppers, Bootstrap, FontAwesome, SweetAlert -->
   <script src="../assets/js/utils/jquery-3.4.1.min.js"></script>
   <script src="../assets/js/utils/popper.min.js"></script>
   <script src="../assets/js/utils/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/4f1d3e52f2.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- Custom JS -->
+  <script src="../assets/js/scripts.js"></script>
   <script src="../assets/js/admin.js"></script>
   <script src="../assets/js/auth.js"></script>
 </body>

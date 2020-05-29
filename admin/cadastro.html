@@ -105,8 +105,8 @@
           <div class="form-group">
             <label for="tipo">Tipo:</label>
             <select name="tipo" id="tipo" class="form-control" required>
-              <option>Filme</option>
-              <option>Série</option>
+              <option value="filme">Filme</option>
+              <option value="seriado">Seriado</option>
             </select>
           </div>
           <div class="form-group text-center">
@@ -118,11 +118,12 @@
   </div>
   
   <!-- Required JavaScript -->
-  <!-- JQuery, Poppers, Bootstrap and FontAwesome -->
+  <!-- JQuery, Poppers, Bootstrap, FontAwesome, SweetAlert -->
   <script src="../assets/js/utils/jquery-3.4.1.min.js"></script>
   <script src="../assets/js/utils/popper.min.js"></script>
   <script src="../assets/js/utils/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/4f1d3e52f2.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- Custom JS -->
   <script src="../assets/js/admin.js"></script>
   <script src="../assets/js/auth.js"></script>

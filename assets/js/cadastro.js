@@ -13,19 +13,20 @@ function cadastrarUsuario() {
       }
     })
     $.ajax({
-      url: "src/CadastrarUsuario.php",
+      url: "src/Usuario.php?acao=cadastrar",
       cache: false,
       data: $.param(dados),
       type: "POST",
       dataType: 'JSON',
-      success: (response) => {
-        alert("Usuário cadastrado com sucesso! Confirme sua conta através do e-mail.");
-      },
+      success: () => {
+        swal("Parabéns!", "Você foi cadastrado com sucesso! Confirme sua conta através do e-mail.", "success")
+      }, 
       error: (request) => {
-        if (request.responseJSON[0].includes(1062)) {
-          alert("E-mail já cadastrado! Tente recuperar sua senha.")
-        } else if (request.status === 500) {
-          alert("Erro! Contate um administrador. Mensagem: " + request.responseText);
+        const {status, responseText, responseJSON} = request; 
+        if (status === 409) {
+          swal("Oops!!!", responseJSON.message + " Já tentou recuperar sua senha?", "error");
+        } else if (status === 500) {
+          swal("Oops!!!", "Erro! Contate um administrador. Mensagem: " + responseText, "error");
         }
       }
     })

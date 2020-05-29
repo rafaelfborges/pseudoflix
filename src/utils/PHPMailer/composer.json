@@ -31,7 +31,7 @@
     },
     "autoload": {
         "classmap": [
-            "class.phpmailer.php",
+          "class.phpmailer.php",
             "class.phpmaileroauth.php",
             "class.phpmaileroauthgoogle.php",
             "class.smtp.php",

@@ -32,7 +32,7 @@ function logIn() {
       alert("Preencha os campos com seu usuário e senha.");  
     } else {
       $.ajax({
-        url: 'src/AutenticarUsuario.php',
+        url: 'src/Usuario.php?acao=autenticar',
         cache: false,
         data: {
           email: email,
@@ -40,15 +40,17 @@ function logIn() {
         },
         type: "POST",
         dataType: 'JSON',
-        success: (request) => {
-          window.localStorage.setItem('userSession', JSON.stringify(request));
+        success: (response) => {
+          const { message } = response;
+          window.localStorage.setItem('userSession', JSON.stringify(message));
           window.location.href = "index.html";
         },
-        error: (request) => {
-          if (request.status === 401) {
+        error: (response) => {
+          const { status, responseText } = response;
+          if (status === 401) {
             alert("Usuário ou senha inválidos. Tente novamente!")
-          } else if (request.status === 500) {
-            alert("Erro! Contate um administrador. Mensagem: " + request.responseText);
+          } else if (status === 500) {
+            alert("Erro! Contate um administrador. Mensagem: " + responseText);
           }
         }
       });

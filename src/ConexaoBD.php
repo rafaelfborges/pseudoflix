@@ -14,9 +14,9 @@ class Conexao {
         $user = 'root';
         $password = '';
         self::$instance = new PDO( 'mysql:dbname='.$dbname.';host='.$host.'', $user, $password );
-      } catch ( PDOException $e ) {
+      } catch (PDOException $error) {
         http_response_code(500);
-        echo "Erro de conexão com o banco: " . $e->getMessage();
+        echo "Erro! Mensagem: ".$error->getMessage();
       }
     }
     return self::$instance;

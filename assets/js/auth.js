@@ -29,10 +29,10 @@ function logIn() {
     const email = $('#inputEmail').val();
     const password = $.MD5($('#inputSenha').val());
     if(email === "" || password === ""){
-      alert("Preencha os campos com seu usuário e senha.");  
+      swal("Oops!!!", "Preencha os campos com seu usuário e senha.", "warning");
     } else {
       $.ajax({
-        url: 'src/AutenticarUsuario.php',
+        url: 'src/Usuario.php?acao=autenticar',
         cache: false,
         data: {
           email: email,
@@ -40,15 +40,19 @@ function logIn() {
         },
         type: "POST",
         dataType: 'JSON',
-        success: (request) => {
-          window.localStorage.setItem('userSession', JSON.stringify(request));
+        success: (response) => {
+          const { message } = response;
+          console.log(message); 
+          
+          window.localStorage.setItem('userSession', JSON.stringify(message));
           window.location.href = "index.html";
         },
         error: (request) => {
-          if (request.status === 401) {
-            alert("Usuário ou senha inválidos. Tente novamente!")
-          } else if (request.status === 500) {
-            alert("Erro! Contate um administrador. Mensagem: " + request.responseText);
+          const { status, responseText, responseJSON } = request;
+          if (status === 401) {
+            swal("Oops!!!", responseJSON.message + " Tente novamente!", "error");
+          } else if (status === 500) {
+            swal("Oops!!!", "Erro! Contate um administrador. Mensagem: " + responseText, "error");
           }
         }
       });

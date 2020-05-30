@@ -1,5 +1,5 @@
 <?php
-  require 'ConexaoBD.php';
+  require 'database/ConexaoBD.php';
     
   $email = $_GET['usuario'];
   

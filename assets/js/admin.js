@@ -3,9 +3,8 @@ $(document).ready(() => {
     window.location.href = "../index.html";
   }
   
-  visualizarFilmeSerie();
   verificaSessao();
-  listarFilmeSerie();
+  listarConteudo(6);
   cadastrarFilmeSerie();
 });
 
@@ -21,19 +20,20 @@ function cadastrarFilmeSerie() {
   $("#formCadastroAdmin").submit(function () {
     let dados = $(this).serializeArray();
     $.ajax({
-      url: "../src/CadastrarFilmeSerie.php",
+      url: "../src/Conteudo.php?acao=cadastrar",
       cache: false,
       data: $.param(dados),
       type: "POST",
       dataType: 'JSON',
       success: (response) => {
-        alert("Título cadastrado com sucesso. Verifique em pesquisar.");
+        swal("Deu certo!", "Título cadastrado com sucesso. Verifique em pesquisar.", "success");
       },
       error: (request) => {
-        if (request.responseJSON[0].includes(1062)) {
-          alert("Título já cadastrado! Verifique em pesquisar.")
+        const { status, responseText, responseJSON } = request;
+        if (status === 409) {
+          swal("Oops!!!", responseJSON.message + " Verifique em pesquisar.", "error");
         } else if (request.status === 500) {
-          alert("Erro! Contate um administrador. Mensagem: " + request.responseText);
+          swal("Oops!!!", "Erro! Contate um administrador. Mensagem: " + responseText, "error");
         }
       }
     })
@@ -41,14 +41,16 @@ function cadastrarFilmeSerie() {
   });
 }
 
-function listarFilmeSerie() {
+function listarConteudo($limiteConteudo) {
   $.ajax({
-    url: "../src/ListarConteudo.php",
+    url: "../src/Conteudo.php?acao=listar",
     cache: false,
     type: "GET",
+    data: { limite: $limiteConteudo },
     dataType: 'JSON',
     success: (response) => {
-      response.map((item) => {
+      const { message } = response;
+      message.map((item) => {
         $("#pesquisa").append(
           `<tr>
             <td>${item.movie_id}</td>
@@ -79,7 +81,7 @@ function visualizarFilmeSerie() {
     let button = $(event.relatedTarget)
     let id = button.data('id')
     $.ajax({
-      url: '../src/ListarConteudo.php',
+      url: '../src/Conteudo.php?acao=listar',
       type: 'GET',
       data: 'id=' + id,
       dataType: 'JSON',

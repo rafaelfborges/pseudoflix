@@ -42,6 +42,8 @@ function logIn() {
         dataType: 'JSON',
         success: (response) => {
           const { message } = response;
+          console.log(message); 
+          
           window.localStorage.setItem('userSession', JSON.stringify(message));
           window.location.href = "index.html";
         },

@@ -21,7 +21,11 @@ if(!empty($_GET)){
       if(verificarExistenciaCamposPost($_POST))
         autenticarUsuario($_POST['email'], $_POST['senha']);
       break;
-      
+
+    case "confirmar":
+      confirmarUsuario($_GET['email']);
+      break;
+
     default:
       echo "Opção inválida!";
   }
@@ -29,6 +33,27 @@ if(!empty($_GET)){
   $code = 400;
   $msg = "Nenhum dado foi enviado, verifique sua requisição!";
   sendResponseCode($code, $msg);
+}
+
+function confirmarUsuario($email) {
+  $query = "SELECT email FROM usuarios_dados WHERE email = '$email'";
+  $result = consultaBanco($query);
+  
+  if($result->rowCount() == 1){
+    $query = "UPDATE usuarios_dados SET flag_confirmacao = '1' WHERE email = '$email'";
+    $result = consultaBanco($query);
+    if(!is_array($result)){
+      echo '<html><head><script>
+                window.sessionStorage.setItem("confirmacao", "true");
+                window.location.href = "../login.html";
+            </script></head></html>';
+    } else {
+      sendResponseCode(403, $result);
+    }
+  } else {
+    sendResponseCode(404, "E-mail não encontrado!");
+  }
+  
 }
 
 function autenticarUsuario($email, $senha) {
@@ -50,6 +75,8 @@ function autenticarUsuario($email, $senha) {
     } else {
       sendResponseCode(401, "Usuário ou senha inválidos.");
     }
+  } else {
+    sendResponseCode(401, "Usuário precisa confirmar e-mail!");
   }
 }
 
@@ -99,8 +126,8 @@ function cadastrarUsuario(){
 
 function enviarEmailConfirmacao($email) {
   $tituloEmail = "Pseudoflix - Confirmação de Cadastro";
-  $message = 'Seu cadastro foi realizado com sucesso! Para confirmar acesse o link: http://localhost/pseudoflix/src/ConfirmarCadastro.php?usuario='.$email.'';
-  
+  $message = "Seu cadastro foi realizado com sucesso! Para confirmar acesse o link: http://localhost/pseudoflix/src/Usuario.php?acao=confirmar&email=".$email;
+ 
   try {
     $mail= new PHPMailer;
     $mail->IsSMTP();
@@ -113,11 +140,11 @@ function enviarEmailConfirmacao($email) {
     $mail->Username = 'pseudoflixpuc@gmail.com';
     $mail->Password = 'Pseudo123';
     $mail->SetFrom('pseudoflixpuc@gmail.com', 'PseudoFlix Inc');
-    $mail->addAddress($email,'');
+    $mail->addAddress($email);
     $mail->Subject = $tituloEmail;
     $mail->msgHTML($message);
     $mail->send();
   } catch (phpmailerException $error) {
-    echo $error;
+    sendResponseCode(500, $error->getMessage());
   }
 }

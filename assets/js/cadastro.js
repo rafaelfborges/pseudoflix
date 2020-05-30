@@ -8,7 +8,7 @@ function cadastrarUsuario() {
   $("#formCadastro").submit(function () {
     let dados = $(this).serializeArray();
     dados.map((item) => {
-      if(item.name === "senha" || item.name === "confirma-senha"){
+      if(item.name === "senha" || item.name === "confirma-senha") {
         item.value = $.MD5(item.value);
       }
     })

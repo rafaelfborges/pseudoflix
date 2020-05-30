@@ -29,6 +29,10 @@ if(!empty($_GET)){
       listarConteudoPorTipo($_GET['tipo'], $_GET['limite']);
       break;
 
+    case "pesquisar":
+      pesquisarConteudo($_GET['pesquisar']);
+      break;
+
     default:
       echo "Opção inválida!";
   }
@@ -36,6 +40,19 @@ if(!empty($_GET)){
   $code = 400;
   $msg = "Nenhum dado foi enviado, verifique sua requisição!";
   sendResponseCode($code, $msg);
+}
+
+function pesquisarConteudo($pesquisa) {
+  $query = "SELECT filmes_series.id AS movie_id, titulo, descricao, url_poster, url_imdb, url_youtube, genero, 
+                data_lancamento, tipo, filmes_series.data_atualizacao, filmes_series.data_criacao FROM filmes_series 
+                WHERE titulo LIKE '%$pesquisa%' OR genero LIKE '%$pesquisa%' OR data_lancamento LIKE '%$pesquisa%' OR tipo LIKE '%$pesquisa%'";
+  
+  $result = consultaBanco($query);
+  if(!is_array($result)){
+    sendResponseCode(200, $result->fetchAll(PDO::FETCH_OBJ));
+  } else {
+    sendResponseCode(403, $result);
+  }
 }
 
 function listarConteudoPorTipo($tipoConteudo, $limiteConteudo) {

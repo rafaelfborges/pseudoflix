@@ -279,27 +279,27 @@ function listarPesquisa() {
   $("#usuarioPesquisa").submit(function () {
     let pesquisa = $(this).serializeArray();
     $.ajax({
-      url: "src/Pesquisa.php",
+      url: "src/Conteudo.php?acao=pesquisar",
       cache: false,
       type: "GET",
       data: $.param(pesquisa),
       dataType: 'JSON',
       success: (response) => {
-        console.log(response);
-        
+        const { message } = response;
+
         $("#conteudoPrincipal").empty().append(`
             <h5>Meus Resultados</h5>
             <div class="row" id="meusResultados"></div>
         `)
         
-        if(response.length === 0) {
+        if(message === 0) {
           $("#meusResultados").append(`
           <div class="text-center mt-4 w-100">
             <p>Não há resultados para mostrar!</p>
           </div>
         `);
         } else {
-          response.map((item) => {
+          message.map((item) => {
             $("#meusResultados").append(
               `<div class="col-md-2 mb-4">
             <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">

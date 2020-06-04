@@ -40,25 +40,21 @@
             <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudos()">Início</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudoPorTipo('seriado', 18)">Seriados</a>
+            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudo('listarPorTipo','seriado', 24)">Seriados</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudoPorTipo('filme', 18)">Filmes</a>
+            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudo('listarPorTipo','filme', 24)">Filmes</a>
           </li>
           <li class="nav-item" id="usuarioConteudosRecentes">
-            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudosRecentes(18)">Recentes</a>
+            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudo('listar', 'recente', 24)">Recentes</a>
           </li>
           <li class="nav-item" id="usuarioFavoritos">
-            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarFavoritos()">Meus Favoritos</a>
+            <a class="nav-link" href="#" onclick="$('#conteudoPrincipal').empty(); listarConteudo('', 'favorito', 24)">Meus Favoritos</a>
           </li>
         </ul>
-
-        <span class="fa-stack fa-lg mr-2" id="usuarioNotificacao">
-          <a href=""><i class="far fa-bell fa-stack-1x fa-inverse"></i></a>
-        </span>
-
+        
         <form class="form-inline my-2 my-lg-0" id="usuarioPesquisa">
-          <input class="form-control mr-sm-1" type="search" name="pesquisar" id="pesquisar" placeholder="Pesquisar" aria-label="Search">
+          <input class="form-control mr-sm-1" type="search" name="pesquisar" id="pesquisar" placeholder="Pesquisar" aria-label="Search" required>
           <button class="btn btn-info my-2 my-sm-0" type="submit">&nbsp;<i class="fas fa-search"></i>&nbsp;</button>
         </form>
 
@@ -81,9 +77,8 @@
   </header>
 
   <!-- Posters - Adicionados recentemente -->
-  <section>
-    <div class="container-fluid mt-3" id="conteudoPrincipal"></div> 
-  </section>
+  <!-- old<div class="container-fluid mt-3" id="conteudoPrincipal"></div> -->
+  <section class="my-container container" id="conteudoPrincipal"></section>
 
   <!-- Modal - Paywall -->
   <div class="modal fade" id="modalPermissao" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalPermissaoLabel" aria-hidden="true">

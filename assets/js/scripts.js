@@ -5,16 +5,15 @@ $(document).ready(async () => {
 });
 
 async function listarConteudos() {
-  //Try abaixo é igual a execução do código abaixo
-  /*listarConteudosRecentes(6) 
-    .then(() => listarConteudoPorTipo("Filme", 6))
-    .then(() => listarConteudoPorTipo("Série", 6))
-    .catch((e) => console.log(e))*/
+  /*listarConteudo("listar", "recente", 6)
+    .then(() => listarConteudo("listarPorTipo", "filme", 6))
+    .then(() => listarConteudo("listarPorTipo", "seriado", 6))
+    .catch((e) => console.log(e));*/
   
   try {
-    await listarConteudosRecentes(6);
-    await listarConteudoPorTipo("filme", 6);
-    await listarConteudoPorTipo("seriado", 6);
+    await listarConteudo("listar", "recente", 6);
+    await listarConteudo("listarPorTipo", "filme", 6);
+    await listarConteudo("listarPorTipo", "seriado", 6);
   } catch (e) {
     console.log(e);
   }
@@ -68,88 +67,54 @@ function exibirDetalhesConteudo(id) {
   })
 }
 
-function listarConteudosRecentes(limiteConteudo) {
+function listarConteudo(tipoAcao, tipoConteudo, limiteConteudo) {
   return new Promise((res, err) => {
+    let dataRequest = tipoConteudo !== "favorito" ? {tipo: tipoConteudo, limite: limiteConteudo} : {id: userSession.id};
+    let urlFetch = tipoConteudo !== "favorito" 
+                    ? "src/Conteudo.php?acao="+tipoAcao 
+                    : "src/Favorito.php?acao=listarPorUsuarioId";
     $.ajax({
-      url: "src/Conteudo.php?acao=listar",
+      url: urlFetch,
+      data: dataRequest,
       cache: false,
       type: "GET",
-      data: { limite: limiteConteudo },
-      dataType: 'JSON',
-      success: (response) => {
-        const { message } = response;
-        
-        $("#conteudoPrincipal").append(`
-        <h5>Adicionados recentemente</h5>
-        <div class="row" id="adicionadoRecentemente"></div>
-      `)
-        if(message.length === 0) {
-          $("#adicionadoRecentemente").append(`
-          <div class="text-center mt-4 w-100">
-            <p>Não há recentes para mostrar!</p>
-          </div>
-        `);
-        } else {
-          message.map((item) => {
-            $("#adicionadoRecentemente").append(`
-          <div class="col-md-2 mb-4">
-            <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
-              <div class="card bg-dark">
-                <img src="${item.url_poster}" class="img-fluid" alt="${item.titulo}">
-              </div>    
-            </a>
-          </div>
-        `)
-          });
-        }
-        res();
-      },
-      error: (request) => {
-        console.log(request);
-        err();
-      }
-    })
-  });
-}
-
-function listarConteudoPorTipo(tipoConteudo, limiteConteudo) {
-  new Promise((res, err) => {
-    $.ajax({
-      url: "src/Conteudo.php?acao=listarPorTipo",
-      cache: false,
-      type: "GET",
-      data: {tipo: tipoConteudo, limite: limiteConteudo},
       dataType: 'JSON',
       success: (response) => {
         const { message } = response;
         const divConteudo = $("#conteudoPrincipal");
         let titulo;
         let div;
-
-        tipoConteudo === "filme" ? titulo = "Filmes" : titulo = "Seriados";
-        divConteudo.append(`
-            <h5>${ titulo }</h5>
-            <div class="row" id="${ titulo.toLowerCase() }"></div>
-        `)
         
-        div = divConteudo.find(`#${titulo.toLowerCase()}`);
-                
+        if(tipoConteudo === "filme"){
+          titulo = "Filmes";
+        } else if(tipoConteudo === "seriado"){
+          titulo = "Seriados";
+        } else if(tipoConteudo === "recente"){
+          titulo = "Recentes";
+        } else {
+          titulo = "Favoritos";
+        }
+                        
         if(message.length === 0) {
-            div.append(`
-              <div class="text-center mt-4 w-100">
-                <p>Não há recentes para mostrar!</p>
+            divConteudo.append(`
+              <div class="container text-center mt-4">
+                <p>Não há ${titulo.toLowerCase()} para mostrar!</p>
               </div>
             `);
         } else {
+          divConteudo.append(`
+            <h4>${ titulo }</h4>
+            <div class="my-grid" id="${ titulo.toLowerCase() }"></div>
+          `)
+          div = divConteudo.find(`#${titulo.toLowerCase()}`);
+          
           message.map((item) => {
             div.append(`
-              <div class="col-md-2 mb-4">
                 <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
-                  <div class="card bg-dark">
-                    <img src="${item.url_poster}" class="img-fluid" alt="${item.titulo}">
-                  </div>    
+                  <figure>
+                    <img src="${item.url_poster}" class="my-card-img" alt="${item.titulo}">
+                  </figure>    
                 </a>
-              </div>
             `)
           });
         }
@@ -160,47 +125,6 @@ function listarConteudoPorTipo(tipoConteudo, limiteConteudo) {
         err();
       }
     })
-  })
-}
-
-function listarFavoritos() {
-  $.ajax({
-    url: "src/Favorito.php?acao=listarPorUsuarioId",
-    cache: false,
-    type: "GET",
-    data: {id: userSession.id},
-    dataType: 'JSON',
-    success: (response) => {
-      const { message } = response;
-
-      $("#conteudoPrincipal").append(`
-        <h5>Meus Favoritos</h5>
-        <div class="row" id="meusFavoritos"></div>
-      `)
-      
-      if(message.length === 0) {
-        $("#meusFavoritos").append(`
-          <div class="text-center mt-4 w-100">
-            <p>Não há favoritos para mostrar!</p>
-          </div>
-        `);
-      } else {
-        message.map((item) => {
-          $("#meusFavoritos").append(
-            `<div class="col-md-2 mb-4">
-            <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
-              <div class="card bg-dark">
-                <img src="${item.url_poster}" class="card-img" alt="${item.titulo}">
-              </div>    
-            </a>
-          </div>
-        `)
-        });
-      }
-    },
-    error: (request) => {
-      console.log(request);
-    }
   })
 }
 
@@ -216,7 +140,7 @@ function cadastrarFavorito(idFilme, idUsuario, tituloConteudo) {
       $("#favorito").css("color", "yellow");
     },
     error: (request) => {
-      const { status, responseText, responseJSON } = request;
+      const { status, responseText } = request;
       if (status === 409) {
         swal({
           title: "Você tem certeza?",
@@ -226,8 +150,17 @@ function cadastrarFavorito(idFilme, idUsuario, tituloConteudo) {
           dangerMode: true,
         }).then((willDelete) => {
           if (willDelete) {
-            removerFavorito(idFilme, idUsuario);
-            $("#favorito").css("color", "darkgrey");
+            let divPrincipal = $("#conteudoPrincipal");
+            removerFavorito(idFilme, idUsuario).then((response) => {
+              if(response.message === 1) {
+                $("#favorito").css("color", "darkgrey");
+
+                if(divPrincipal.find("#favoritos").length === 1){
+                  divPrincipal.empty();
+                  listarConteudo('', 'favorito', 24);
+                }
+              }  
+            });
           }
         });
       } else if (status === 500) {
@@ -238,7 +171,7 @@ function cadastrarFavorito(idFilme, idUsuario, tituloConteudo) {
 }
 
 function removerFavorito(idFilme, idUsuario) {
-  $.ajax({
+  return $.ajax({
     url: "src/Favorito.php?acao=deletar",
     cache: false,
     type: "POST",
@@ -246,12 +179,9 @@ function removerFavorito(idFilme, idUsuario) {
     dataType: 'JSON',
     success: (response) => {
       const { message } = response;
-      if (message === 1) 
-        return true;
-    },
-    error: (request) => {
-      console.log(request);
-      return false;
+      return message;
+    }, error: (request) => {
+      return request;
     }
   })
 }
@@ -286,29 +216,26 @@ function listarPesquisa() {
       dataType: 'JSON',
       success: (response) => {
         const { message } = response;
-
-        $("#conteudoPrincipal").empty().append(`
-            <h5>Meus Resultados</h5>
-            <div class="row" id="meusResultados"></div>
-        `)
         
-        if(message === 0) {
-          $("#meusResultados").append(`
-          <div class="text-center mt-4 w-100">
-            <p>Não há resultados para mostrar!</p>
-          </div>
-        `);
+        if(message.length === 0) {
+          $("#conteudoPrincipal").empty().append(`
+            <div class="container text-center mt-4">
+                <p>Não há resultados para mostrar!</p>
+            </div>
+          `);
         } else {
+          $("#conteudoPrincipal").empty().append(`
+            <h4>Resultados</h4>
+            <div class="my-grid" id="resultados"></div>
+          `);
           message.map((item) => {
-            $("#meusResultados").append(
-              `<div class="col-md-2 mb-4">
-            <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
-              <div class="card bg-dark">
-                <img src="${item.url_poster}" class="card-img" alt="${item.titulo}">
-              </div>    
-            </a>
-          </div>
-        `)
+            $("#resultados").append(`
+              <a href="${item.url_imdb}" target="_blank" onclick="verificarPermissao(${item.movie_id});">
+                <figure>
+                  <img src="${item.url_poster}" class="my-card-img" alt="${item.titulo}">
+                </figure>    
+              </a>
+            `)
           });
         }
       },

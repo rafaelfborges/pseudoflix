@@ -7,7 +7,7 @@ require 'utils/ValidarReqPost.php';
 date_default_timezone_set('America/Sao_Paulo');
 
 /**
- * ### Módulo de Usuário ###
+ * ### Módulo de Conteúdos ###
  * De acordo com ação passado por parâmetro, executa o método correspondente.
  */
 if(!empty($_GET)){
@@ -19,6 +19,10 @@ if(!empty($_GET)){
 
     case "listar":
       listarConteudo($_GET['limite']);
+      break;
+
+    case "listarTudo":
+      listarTudo();
       break;
       
     case "listarComId":
@@ -97,6 +101,20 @@ function listarConteudo($limiteConteudo){
   }
 }
 
+function listarTudo(){
+  $query = "SELECT filmes_series.id AS movie_id, titulo, descricao, url_poster, url_imdb, url_youtube, genero, 
+                data_lancamento, tipo, usuarios_dados.nome_completo AS usuario, filmes_series.data_atualizacao, 
+                filmes_series.data_criacao FROM filmes_series INNER JOIN usuarios_dados ON 
+                filmes_series.usuario_id = usuarios_dados.id ORDER BY data_criacao";
+
+  $result = consultaBanco($query);
+  if(!is_array($result)){
+    sendResponseCode(200, $result->fetchAll(PDO::FETCH_OBJ));
+  } else {
+    sendResponseCode(403, $result);
+  }
+}
+
 function cadastrarConteudo(){
   $titulo = $_POST['titulo'];
   $descricao = $_POST['descricao'];
@@ -117,9 +135,13 @@ function cadastrarConteudo(){
                                             '$genero', '$dataLancamento', '$tipo', '$usuario_id', CURRENT_TIMESTAMP)";
   
   $result = consultaBanco($query);
-  if(is_array($result) && in_array("1062", $result)){
-    $msg = "Título já cadastrado!";
-    sendResponseCode(409, $msg);
+  if(is_array($result)){
+    if(in_array("1062", $result)) {
+      $msg = "Título já cadastrado!";
+      sendResponseCode(409, $msg);
+    } else {
+      sendResponseCode(400, $result);
+    }
   } else {
     sendResponseCode(201, $result->rowCount());
   }

@@ -7,7 +7,7 @@ require 'utils/ValidarReqPost.php';
 date_default_timezone_set('America/Sao_Paulo');
 
 /**
- * ### Módulo de Usuário ###
+ * ### Módulo de Favoritos ###
  * De acordo com ação passado por parâmetro, executa o método correspondente.
  */
 if(!empty($_GET)){
@@ -80,9 +80,13 @@ function cadastrarFavorito($idUsuario, $idFilme) {
   $query = "INSERT INTO favoritos(user_id, movie_id) VALUES ('$idUsuario', '$idFilme')";
   
   $result = consultaBanco($query);
-  if(is_array($result) && in_array("1062", $result)){
-    $msg = "Já está favoritado!";
-    sendResponseCode(409, $msg);
+  if(is_array($result)){
+    if(in_array("1062", $result)) {
+      $msg = "Já está favoritado!";
+      sendResponseCode(409, $msg);  
+    } else {
+      sendResponseCode(400, $result); 
+    }
   } else {
     sendResponseCode(201, $result->rowCount());
   }
